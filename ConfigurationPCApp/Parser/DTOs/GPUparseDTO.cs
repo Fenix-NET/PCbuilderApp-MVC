@@ -10,11 +10,9 @@ namespace ConfigurationPCApp.Parser.DTOs
     {
         public string? Manufacturer { get; set; }
 
-        public string? Model { get; set; }
-
-        public decimal Price { get; set; }
+        public string? Model { get; set; }       
 
         public ushort Power { get; set; }
-
+        public decimal Price { get; set; }
     }
 }
