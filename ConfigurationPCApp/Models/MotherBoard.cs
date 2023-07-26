@@ -12,10 +12,8 @@ namespace ConfigurationPCApp.Models
         [ForeignKey(nameof(CPU))]
         public string Socket { get; set; }
 
-        public decimal Price { get; set; }
-
         public string Form { get; set; }
-
+        public decimal Price { get; set; }
 
     }
 }

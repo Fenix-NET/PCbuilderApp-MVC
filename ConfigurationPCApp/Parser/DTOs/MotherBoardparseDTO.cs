@@ -9,10 +9,7 @@ namespace ConfigurationPCApp.Parser.DTOs
         public string Model { get; set; }
 
         public string Socket { get; set; }
-
-        public decimal Price { get; set; }
-
         public string Form { get; set; }
-
+        public decimal Price { get; set; }
     }
 }
