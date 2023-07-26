@@ -12,8 +12,15 @@ namespace ConfigurationPCApp.Parser
 {
     public class Parser : IParser
     {
+        public void StartedParseCase()
+        {
+            throw new NotImplementedException();
+        }
 
-
+        public void StartedParseCPU()
+        {
+            throw new NotImplementedException();
+        }
 
         public async void StartedParseGPU()
         {
@@ -30,35 +37,48 @@ namespace ConfigurationPCApp.Parser
             var titlesPrice = cellsP.Select(m => m.TextContent).ToList();
 
 
+        }
+        public void StartedParseMotherboard()
+        {
+            throw new NotImplementedException();
+        }
 
+        public void StartedParsePSU()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartedParseRAM()
+        {
+            throw new NotImplementedException();
         }
 
 
-        List<GPUparseDTO> GPUs = new List<GPUparseDTO>();
+        // List<GPUparseDTO> GPUs = new List<GPUparseDTO>();
 
-        int x = 0;
-        Console.WriteLine("Начало парсинга GPU");
-            for (var i = 0; i<titlesRef.Count; i++)
-            {
-                GPUs.Add(new Parser());
-                GPUs[x].Price = titlesPrice[i];
-                address = titlesRef[i];
-                document = await context.OpenAsync(address);
+        //int x = 0;
+        //Console.WriteLine("Начало парсинга GPU");
+        //    for (int i = 0; i<titlesRef.Count; i++)
+        //    {
+        //        GPUs.Add(new Parser());
+        //        GPUs[x].Price = titlesPrice[i];
+        //        address = titlesRef[i];
+        //        document = await context.OpenAsync(address);
 
-        var manufacturerSelector = "td#tdsa2943";    //"td#tdsa2943"a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component"
-        var cellss = document.QuerySelector(manufacturerSelector);
-        GPUs[x].Manufacturer = cellss?.TextContent;
+        /* var manufacturerSelector = "td#tdsa2943";*/    //"td#tdsa2943"a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component"
+                                                          //var cellss = document.QuerySelector(manufacturerSelector);
+                                                          //GPUs[x].Manufacturer = cellss?.TextContent;
 
-                var modelSelector = "td#tdsa2944";
-        cellss = document.QuerySelector(modelSelector);
-                GPUs[x].Model = cellss?.TextContent;
+        //        var modelSelector = "td#tdsa2944";
+        //cellss = document.QuerySelector(modelSelector);
+        //        GPUs[x].Model = cellss?.TextContent;
 
-                var powerSelector = "td#tdsa44456";
-        cellss = document.QuerySelector(powerSelector);
-                string? power = Regex.Replace(cellss?.TextContent, @"\D+", "");
-        GPUs[x].Power = power;
+        //        var powerSelector = "td#tdsa44456";
+        //cellss = document.QuerySelector(powerSelector);
+        //        string? power = Regex.Replace(cellss?.TextContent, @"\D+", "");
+        //GPUs[x].Power = power;
 
-            x++;
+        //    x++;
 
     }
 }        

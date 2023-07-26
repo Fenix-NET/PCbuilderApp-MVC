@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ConfigurationPCApp.Data;
 using ConfigurationPCApp.Parser.DTOs;
+using ConfigurationPCApp.Models;
 
 namespace ConfigurationPCApp.Controllers
 {
@@ -23,22 +24,58 @@ namespace ConfigurationPCApp.Controllers
 
         // GET: api/Pars
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CPUparseDTO>>> GetCPUparse([FromServices])
+        public async Task<ActionResult<IEnumerable<CPU>>> GetCPUparse()  // [Fromservices]
         {
-          if (_context.CPUparses == null)
+          if (_context.CPUs == null)
           {
               return NotFound();
           }
-            return await _context.CPUparses.ToListAsync();
+            return await _context.CPUs.ToListAsync();
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GPUparseDTO>>> GetGPUparse()
+        public async Task<ActionResult<IEnumerable<GPU>>> GetGPUparse()
         {
-            if (_context.CPUparses == null)
+            if (_context.GPUs == null)
             {
                 return NotFound();
             }
-            return await _context.GPUparses.ToListAsync();
+            return await _context.GPUs.ToListAsync();
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MotherBoard>>> GetMotherBoardparse()
+        {
+            if (_context.GPUs == null)
+            {
+                return NotFound();
+            }
+            return await _context.MotherBoards.ToListAsync();
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<RAM>>> GetRAMparse()
+        {
+            if (_context.GPUs == null)
+            {
+                return NotFound();
+            }
+            return await _context.RAMs.ToListAsync();
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PSU>>> GetPSUparse()
+        {
+            if (_context.GPUs == null)
+            {
+                return NotFound();
+            }
+            return await _context.PSUs.ToListAsync();
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Case>>> GetCaseparse()
+        {
+            if (_context.GPUs == null)
+            {
+                return NotFound();
+            }
+            return await _context.Cases.ToListAsync();
         }
 
 
