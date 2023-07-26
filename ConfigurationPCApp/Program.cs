@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ConfigurationPCApp.Data;
-ProgramParse builder = WebApplication.CreateBuilder(args);
+
+Program builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ConfigurationPCContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConfigurationPCContext") ?? throw new InvalidOperationException("Connection string 'ConfigurationPCContext' not found.")));
 builder.Services.AddControllers();

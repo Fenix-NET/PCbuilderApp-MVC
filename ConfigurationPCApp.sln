@@ -5,8 +5,6 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigurationPCApp", "ConfigurationPCApp\ConfigurationPCApp.csproj", "{C55CCA18-AC18-455D-B0BC-DD9AC2311CB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parser3", "Parser3\Parser3.csproj", "{05897AB5-DA70-4B76-935F-3752E2B60851}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCParser", "PCParser\PCParser.csproj", "{4910BA9E-F2D0-4691-AF79-929133BD46EF}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{C55CCA18-AC18-455D-B0BC-DD9AC2311CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C55CCA18-AC18-455D-B0BC-DD9AC2311CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C55CCA18-AC18-455D-B0BC-DD9AC2311CB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05897AB5-DA70-4B76-935F-3752E2B60851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05897AB5-DA70-4B76-935F-3752E2B60851}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05897AB5-DA70-4B76-935F-3752E2B60851}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05897AB5-DA70-4B76-935F-3752E2B60851}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4910BA9E-F2D0-4691-AF79-929133BD46EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4910BA9E-F2D0-4691-AF79-929133BD46EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4910BA9E-F2D0-4691-AF79-929133BD46EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
