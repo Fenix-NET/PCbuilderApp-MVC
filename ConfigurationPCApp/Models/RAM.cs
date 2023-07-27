@@ -8,7 +8,7 @@
 
         public string Model { get; set; }
 
-        public string Memory { get; set; }
+        public ushort Memory { get; set; }
         public string DDR { get; set; }
         public decimal Price { get; set; }
 

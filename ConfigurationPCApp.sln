@@ -5,9 +5,9 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigurationPCApp", "ConfigurationPCApp\ConfigurationPCApp.csproj", "{C55CCA18-AC18-455D-B0BC-DD9AC2311CB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCParser", "PCParser\PCParser.csproj", "{4910BA9E-F2D0-4691-AF79-929133BD46EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCParser", "PCParser\PCParser.csproj", "{4910BA9E-F2D0-4691-AF79-929133BD46EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A5CBD01B-DB67-42F4-BFBC-5A1488854BA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{A5CBD01B-DB67-42F4-BFBC-5A1488854BA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
