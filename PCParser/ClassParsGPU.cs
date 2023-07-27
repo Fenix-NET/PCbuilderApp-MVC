@@ -19,8 +19,8 @@ namespace PCParser
 
             var config = Configuration.Default.WithDefaultLoader();
             var address = "https://tula.nix.ru/price.html?section=video_cards_all#c_id=101&fn=101&g_id=685&page=1&sort=%2Bp965%2B214%2B215&spoiler=&store=region-1483_0&thumbnail_view=2";
-            var context = BrowsingContext.New(config);
-            var document = await context.OpenAsync(address);
+            using var context = BrowsingContext.New(config);
+            using var document = await context.OpenAsync(address);
             var urlSelector = "a.t"; //html element to get book names
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -38,27 +38,33 @@ namespace PCParser
             var modelSelector = "td#tdsa2944";                 //"td#tdsa2944 <a.btn btn-i btn-t-1 btn-c-1 btn-c-2-b"
             var powerSelector = "td#tdsa44456";
             var powerSelectorNull = "td#tdsa893";
+            var techprocSelector = "td#tdsa3735";
+            var memorySelector = "td#tdsa689";
             IElement cellss;
             for (int i = 0; i < titlesRef.Count; i++)
             {
                 GPUs.Add(new GPUparse());
                 GPUs[x].Price = decimal.Parse(titlesPrice[i]);
                 address = titlesRef[i];
-                document = await context.OpenAsync(address);
+                using var clondoc = await context.OpenAsync(address);
 
-                //var manufacturerSelector = "td#tdsa2943";    //"td#tdsa2943"a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component"
-                cellss = document.QuerySelector(manufacturerSelector);
-                GPUs[x].Manufacturer = cellss?.TextContent ?? string.Empty;
+                GPUs[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                // var modelSelector = "td#tdsa2944";
-                cellss = document.QuerySelector(modelSelector);
-                GPUs[x].Model = cellss?.FirstChild.TextContent ?? cellss.TextContent ?? string.Empty;
+                GPUs[x].Model = clondoc.QuerySelector(modelSelector)?.FirstChild.TextContent ?? "n/a";
 
-                // var powerSelector = "td#tdsa44456";
-                cellss = document.QuerySelector(powerSelector) ?? document.QuerySelector(powerSelectorNull);
-                GPUs[x].Power = ushort.Parse(Regex.Replace(cellss?.TextContent, @"\D+", ""));
+                try
+                {
+                    GPUs[x].Power = ushort.Parse(Regex.Replace(clondoc.QuerySelector(powerSelector).TextContent, @"\D+", ""));
+                }
+                catch
+                {
+                    GPUs[x].Power = ushort.Parse(Regex.Replace(clondoc.QuerySelector(powerSelectorNull).TextContent, @"\D+", ""));
+                }
+                GPUs[x].Techproc = clondoc.QuerySelector(techprocSelector).TextContent ?? "n/a";
+                GPUs[x].Memory = clondoc.QuerySelector(memorySelector).TextContent;
 
                 x++;
+                Console.WriteLine($"Итерация = {x}");
             }
             Console.WriteLine("Конец работы");
             for (int i = 0; i < GPUs.Count; i++)
@@ -66,14 +72,17 @@ namespace PCParser
                 Console.WriteLine($"Производитель : {GPUs[i].Manufacturer}");
                 Console.WriteLine($"Модель : {GPUs[i].Model}");
                 Console.WriteLine($"Потребление энергии : {GPUs[i].Power}");
+                Console.WriteLine($"Техпроцесс : {GPUs[i].Techproc}");
+                Console.WriteLine($"Память : {GPUs[i].Memory}");
                 Console.WriteLine($"Цена : {GPUs[i].Price}");
                 Console.WriteLine("================================================================");
             }
-
-
         }
-
-
 
     }
 }
+
+
+
+
+

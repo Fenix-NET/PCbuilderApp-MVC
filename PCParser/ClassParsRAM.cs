@@ -21,8 +21,8 @@ namespace PCParser
 
             var config = Configuration.Default.WithDefaultLoader();
             var address = "https://tula.nix.ru/price.html?section=memory_modules_all#c_id=182&fn=182&g_id=1022&page=1&sort=%2Bp327%2B1965&spoiler=&store=region-1483_0&thumbnail_view=2";
-            var context = BrowsingContext.New(config);
-            var document = await context.OpenAsync(address);
+            using var context = BrowsingContext.New(config);
+            using var document = await context.OpenAsync(address);
             var urlSelector = "a.t";
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -45,21 +45,18 @@ namespace PCParser
                 RAMs.Add(new RAMparse());
                 RAMs[x].Price = decimal.Parse(titlesPrice[i]);
                 address = titlesRef[i];
-                document = await context.OpenAsync(address);
-       
-                cellss = document.QuerySelector(manufacturerSelector);
-                RAMs[x].Manufacturer = cellss?.TextContent;
+                using var clondoc = await context.OpenAsync(address);
+                     
+                RAMs[x].Manufacturer =  clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 
-                cellss = document.QuerySelector(modelSelector);
-                RAMs[x].Model = cellss?.FirstChild.TextContent ?? cellss?.TextContent;
+                RAMs[x].Model = clondoc.QuerySelector(modelSelector).FirstChild.TextContent ?? "n/a";
 
-                cellss = document.QuerySelector(DDRSelector);
-                RAMs[x].DDR = cellss?.FirstChild.TextContent ?? cellss?.TextContent;
+                RAMs[x].DDR = clondoc.QuerySelector(DDRSelector).FirstChild.TextContent ?? "n/a";
 
-                cellss = document.QuerySelector(MemorySelector);
-                RAMs[x].Memory = ushort.Parse(Regex.Replace(cellss?.FirstChild.TextContent, @"\D+", "")); //?? 8;        //ushort.Parse(Regex.Replace(cellss.TextContent, @"\D+", ""));
+                RAMs[x].Memory = ushort.Parse(Regex.Replace(clondoc.QuerySelector(MemorySelector).FirstChild.TextContent, @"\D+", ""));         //ushort.Parse(Regex.Replace(cellss.TextContent, @"\D+", ""));
 
                 x++;
+                Console.WriteLine($"Итерация = {x}");
             }
             Console.WriteLine("Конец работы");
             for (int i = 0; i < RAMs.Count; i++)

@@ -25,9 +25,9 @@ namespace PCParser
             Console.WriteLine("Подготовка парсера");
 
             var config = Configuration.Default.WithDefaultLoader();
-            var address = "https://tula.nix.ru/price.html?section=motherboards_all#c_id=102&fn=102&g_id=4&page=1&sort=%2Bp79%2B1011%2B1008%2B127%2B1769&spoiler=&store=region-1483_0&thumbnail_view=2";
-            var context = BrowsingContext.New(config);
-            var document = await context.OpenAsync(address);
+            var address = "https://tula.nix.ru/price.html?section=cpu_all#c_id=161&fn=161&g_id=171&page=1&sort=%2Bp8175%2B1605%2B7287%2B766%2B2326&spoiler=&store=region-1483_0&thumbnail_view=2";
+            using var context = BrowsingContext.New(config);
+            using var document = await context.OpenAsync(address);
             var urlSelector = "a.t"; //html element to get book names
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -51,21 +51,17 @@ namespace PCParser
                 CPUs.Add(new CPUparse());
                 CPUs[x].Price = decimal.Parse(titlesPrice[i]);
                 address = titlesRef[i];
-                document = await context.OpenAsync(address);
-          
-                cellss = document.QuerySelector(manufacturerSelector);
-                CPUs[x].Manufacturer = cellss?.TextContent ?? string.Empty;
+                using var clondoc = await context.OpenAsync(address);
+                         
+                CPUs[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 
-                // var modelSelector = "td#tdsa2944";
-                cellss = document.QuerySelector(modelSelector);
-                CPUs[x].Model = cellss?.FirstChild.TextContent ?? cellss?.TextContent ?? string.Empty;
+                CPUs[x].Model = clondoc.QuerySelector(modelSelector).FirstChild.TextContent ?? "n/a";
+                Console.WriteLine($"Модель : {CPUs[x].Model}");
 
-                // var powerSelector = "td#tdsa44456";
-                cellss = document.QuerySelector(socketSelector);
-
-                CPUs[x].Socket = cellss?.FirstChild.TextContent ?? cellss?.TextContent ?? string.Empty;
+                CPUs[x].Socket = clondoc.QuerySelector(socketSelector).FirstChild.TextContent ?? "n/a";
 
                 x++;
+                Console.WriteLine($"Итерация = {x}");
             }
             Console.WriteLine("Конец работы");
 

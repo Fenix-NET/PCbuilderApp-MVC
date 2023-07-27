@@ -21,8 +21,8 @@ namespace PCParser
 
             var config = Configuration.Default.WithDefaultLoader();
             var address = "https://tula.nix.ru/price.html?section=power_supplies_all#c_id=772&fn=772&g_id=927&page=1&sort=%2Bp6920%2B127%2B998%2B2289&spoiler=&store=region-1483_0&thumbnail_view=2";
-            var context = BrowsingContext.New(config);
-            var document = await context.OpenAsync(address);
+            using var context = BrowsingContext.New(config);
+            using var document = await context.OpenAsync(address);
             var urlSelector = "a.t"; 
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -46,18 +46,16 @@ namespace PCParser
                 PSUs.Add(new PSUParse());
                 PSUs[x].Price = decimal.Parse(titlesPrice[i]);
                 address = titlesRef[i];
-                document = await context.OpenAsync(address);
-             
-                cellss = document.QuerySelector(manufacturerSelector);
-                PSUs[x].Manufacturer = cellss?.TextContent ?? cellss?.FirstChild.TextContent ?? "n/a";
+                using var clondoc = await context.OpenAsync(address);
 
-                cellss = document.QuerySelector(modelSelector);
-                PSUs[x].Model = cellss?.FirstChild.TextContent ?? cellss?.TextContent ?? "n/a";
+                PSUs[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 
-                cellss = document.QuerySelector(powerSelector);
-                PSUs[x].Power = ushort.Parse(Regex.Replace(cellss.TextContent, @"\D+", ""));
+                PSUs[x].Model = clondoc.QuerySelector(modelSelector).FirstChild.TextContent ?? "n/a";
+
+                PSUs[x].Power = ushort.Parse(Regex.Replace(clondoc.QuerySelector(powerSelector).TextContent, @"\D+", ""));
 
                 x++;
+                Console.WriteLine($"Итерация = {x}");
             }
             Console.WriteLine("Конец работы");
             for (int i = 0; i < PSUs.Count; i++)

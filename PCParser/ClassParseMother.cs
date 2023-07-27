@@ -22,9 +22,9 @@ namespace PCParser
 
             var config = Configuration.Default.WithDefaultLoader();
             var address = "https://tula.nix.ru/price.html?section=motherboards_all#c_id=102&fn=102&g_id=4&page=1&sort=%2Bp79%2B1011%2B1008%2B127%2B1769&spoiler=&store=region-1483_0&thumbnail_view=2";
-            var context = BrowsingContext.New(config);
-            var document = await context.OpenAsync(address);
-            document.
+            using var context = BrowsingContext.New(config);
+            using var document = await context.OpenAsync(address);
+
             var urlSelector = "a.t"; 
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -38,9 +38,10 @@ namespace PCParser
 
             Console.WriteLine("Начало парсинга Motherboard");
             var manufacturerSelector = "td#tdsa2943";
-            var modelSelector = "td#tdsa2944";                 //"td#tdsa2944 <a.btn btn-i btn-t-1 btn-c-1 btn-c-2-b"
+            var modelSelector = "td#tdsa2944";                 
             var socketSelector = "td#tdsa1307";
-            var formSelector = "td#tdsa643";                                 //"a.dfaq";
+            var formSelector = "td#tdsa643";
+            var formSelectorNull = "td#tdsa25875";
             IElement cellss;
             int x = 0;
             for (int i = 0; i < titlesRef.Count; i++)
@@ -48,27 +49,20 @@ namespace PCParser
                 motherParses.Add(new MotherParse());
                 motherParses[x].Price = decimal.Parse(titlesPrice[i]);
                 address = titlesRef[i];
-                document = await context.OpenAsync(address);
+                using var clondoc = await context.OpenAsync(address);
+ 
+                motherParses[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 
-                //var manufacturerSelector = "td#tdsa2943";    //"td#tdsa2943"a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component"
-                cellss = document.QuerySelector(manufacturerSelector);
-                motherParses[x].Manufacturer = cellss?.TextContent ?? string.Empty;
+                motherParses[x].Model = clondoc.QuerySelector(modelSelector)?.FirstChild?.TextContent ?? "n/a";
 
-                // var modelSelector = "td#tdsa2944";
-                cellss = document.QuerySelector(modelSelector);
-                motherParses[x].Model = cellss?.FirstChild.TextContent ?? cellss?.TextContent ?? string.Empty;
+                motherParses[x].Socket = clondoc.QuerySelector(socketSelector)?.FirstChild.TextContent ?? "n/a";
 
-                // var powerSelector = "td#tdsa44456";
-                cellss = document.QuerySelector(socketSelector);
-                motherParses[x].Socket = cellss?.FirstChild.TextContent ?? cellss?.TextContent ?? string.Empty;
 
-                cellss = document.QuerySelector(formSelector);
-
-                //Regex.Replace(cellss?.FirstChild.TextContent, @"\D+", "");
-                var fool = cellss.FirstChild.Text();                                                                          //motherParses[x].Form = cellss?.TextContent ?? string.Empty;
-                motherParses[x].Form = Regex.Replace(fool, @"\W+\d+\D+\d+\D+", "");
+                try { motherParses[x].Form = Regex.Replace(clondoc.QuerySelector(formSelector).FirstChild.Text(), @"\W+\d+\D+\d+\D+", ""); }
+                catch (Exception ex) { motherParses[x].Form = clondoc.QuerySelector(formSelectorNull)?.FirstChild?.TextContent ?? "n/a"; };
 
                 x++;
+                Console.WriteLine($"Итерация = {x}");
             }
             Console.WriteLine("Конец работы");
             for (int i = 0; i < motherParses.Count; i++)
