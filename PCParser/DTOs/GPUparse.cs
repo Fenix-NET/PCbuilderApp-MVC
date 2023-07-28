@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PCParser
+namespace PCParser.DTOs
 {
     public class GPUparse
     {
         public string? Manufacturer { get; set; }
 
         public string? Model { get; set; }
+        public string Techproc { get; set; }
+
+        public string Memory { get; set; }
 
         public decimal Price { get; set; }
 
