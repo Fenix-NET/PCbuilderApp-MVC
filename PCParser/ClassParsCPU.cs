@@ -11,61 +11,61 @@ using PCParser.DTOs;
 
 namespace PCParser
 {
-    public class ClassParsCPU
+    public class ClassParsCPU : BaseParseClass
     {
-
+        public List<CPUparse> _cpus = new();
         public async Task StartParsCPU()
         {
-            Console.WriteLine("Подготовка парсера");
-
-            var config = Configuration.Default.WithDefaultLoader();
-            var adress = "https://tula.nix.ru/price.html?section=cpu_all#c_id=161&fn=161&g_id=171&page=1&sort=%2Bp8175%2B1605%2B7287%2B766%2B2326&spoiler=&store=region-1483_0&thumbnail_view=2";
-            using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(adress);
-            var urlSelector = "a.t"; //html element to get book names
-            var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
-            var titlesRef = cells.Select(m => m.Href).ToList();
-            var priceSelector = "td.d.tac.cell-price > span"; //html element to get book names
-            var cellsP = document.QuerySelectorAll(priceSelector);
-
-            var titlesPrice = cellsP.Select(m => m.TextContent.Replace(" ", "")).ToList();
-
-            List<CPUparse> CPUs = new List<CPUparse>();
-            
+            List<string> listref = GetListRef();
             Console.WriteLine("Начало парсинга CPU");
             var manufacturerSelector = "td#tdsa2943";
-            var modelSelector = "td#tdsa2944";                 //"td#tdsa2944 <a.btn btn-i btn-t-1 btn-c-1 btn-c-2-b"
+            var modelSelector = "td#tdsa2944";
+            var hherzSelector = "td#tdsa3808";
             var socketSelector = "td#tdsa1307";
-            
-            //IElement cellss;
-            int x = 0;
-            for (int i = 0; i < titlesRef.Count; i++)
+            var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
+
+            foreach (string link in listref)
             {
-                CPUs.Add(new CPUparse());
-                CPUs[x].Price = decimal.Parse(titlesPrice[i]);
-                adress = titlesRef[i];
-                using var clondoc = await context.OpenAsync(adress);
-                         
-                CPUs[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
+                CPUparse _cpu = new();
+                using var doc = GetPage(link);
 
-                CPUs[x].Model = clondoc.QuerySelector(modelSelector).FirstChild.TextContent ?? "n/a";
-                Console.WriteLine($"Модель : {CPUs[x].Model}");
+                _cpu.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                CPUs[x].Socket = clondoc.QuerySelector(socketSelector).FirstChild.TextContent ?? "n/a";
+                _cpu.Model = doc.QuerySelector(modelSelector).FirstChild?.TextContent ?? "n/a";
 
-                x++;
-                Console.WriteLine($"Итерация = {x}");
+                _cpu.Hherz = doc.QuerySelector(hherzSelector)?.FirstChild?.TextContent ?? "n/a";
+
+                _cpu.Socket = doc.QuerySelector(socketSelector).FirstChild?.TextContent ?? "n/a";
+
+                try { _cpu.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
+                catch (Exception ex) { _cpu.Price = 0; }
+                Console.WriteLine(_cpu.Manufacturer);
+                Console.WriteLine(_cpu.Model);
+                Console.WriteLine(_cpu.Hherz);
+                Console.WriteLine(_cpu.Socket);
+                Console.WriteLine(_cpu.Price);
+                Console.WriteLine(new string('.', 80));
+
+                _cpus.Add(_cpu);
             }
             Console.WriteLine("Конец работы");
-
-            for (int i = 0; i < CPUs.Count; i++)
-            {
-                Console.WriteLine($"Производитель : {CPUs[i].Manufacturer}");
-                Console.WriteLine($"Модель : {CPUs[i].Model}");
-                Console.WriteLine($"Сокет : {CPUs[i].Socket}");
-                Console.WriteLine($"Цена : {CPUs[i].Price}");
-                Console.WriteLine("================================================================");
-            }
+            //foreach (CPUparse cpu in _cpus)
+            //{
+            //    Console.WriteLine(cpu.Manufacturer);
+            //    Console.WriteLine(cpu.Model);
+            //    Console.WriteLine(cpu.Hherz);
+            //    Console.WriteLine(cpu.Socket);
+            //    Console.WriteLine(cpu.Price);
+            //    Console.WriteLine(new string('.', 80));
+            //}
+            //for (int i = 0; i < CPUs.Count; i++)
+            //{
+            //    Console.WriteLine($"Производитель : {CPUs[i].Manufacturer}");
+            //    Console.WriteLine($"Модель : {CPUs[i].Model}");
+            //    Console.WriteLine($"Сокет : {CPUs[i].Socket}");
+            //    Console.WriteLine($"Цена : {CPUs[i].Price}");
+            //    Console.WriteLine("================================================================");
+            //}
 
 
 

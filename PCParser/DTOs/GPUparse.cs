@@ -12,12 +12,8 @@ namespace PCParser.DTOs
 
         public string? Model { get; set; }
         public string Techproc { get; set; }
-
         public string Memory { get; set; }
-
-        public decimal Price { get; set; }
-
         public ushort Power { get; set; }
-
+        public decimal Price { get; set; }
     }
 }

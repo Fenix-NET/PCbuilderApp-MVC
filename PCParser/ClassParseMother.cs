@@ -8,30 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using PCParser.DTOs;
 using System.Text.RegularExpressions;
+using System.Diagnostics.Metrics;
 
 namespace PCParser
 {                                                       //Выделение общей логики в отдельные сервисы
-    internal class ClassParseMother                     //Оптимизация работы и времени отклика.
-    {                                                   
-                                                    
+    internal class ClassParseMother : BaseParseClass                   //Оптимизация работы и времени отклика.
+    {
+        public List<MotherParse> _mothers = new();
         public async Task StartParsMother()
         {
-            Console.WriteLine("Подготовка паарсера");
+            Console.WriteLine("Подготовка парсера");
 
-            var config = Configuration.Default.WithDefaultLoader();
-            var adress = "https://tula.nix.ru/price.html?section=motherboards_all#c_id=102&fn=102&g_id=4&page=1&sort=%2Bp79%2B1011%2B1008%2B127%2B1769&spoiler=&store=region-1483_0&thumbnail_view=2";
-            using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(adress);
-
-            var urlSelector = "a.t"; 
-            var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
-            var titlesRef = cells.Select(m => m.Href).ToList();
-            var priceSelector = "td.d.tac.cell-price > span"; 
-            var cellsP = document.QuerySelectorAll(priceSelector);
-
-            var titlesPrice = cellsP.Select(m => m.TextContent.Replace(" ", "")).ToList();
-
-            List<MotherParse> motherParses  = new List<MotherParse>();
+            List<string> listref = GetListRef();
 
             Console.WriteLine("Начало парсинга Motherboard");
             var manufacturerSelector = "td#tdsa2943";
@@ -39,37 +27,54 @@ namespace PCParser
             var socketSelector = "td#tdsa1307";
             var formSelector = "td#tdsa643";
             var formSelectorNull = "td#tdsa25875";
-            IElement cellss;
-            int x = 0;
-            for (int i = 0; i < titlesRef.Count; i++)
+            var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
+
+            foreach (string link in listref)
             {
-                motherParses.Add(new MotherParse());
-                motherParses[x].Price = decimal.Parse(titlesPrice[i]);
-                adress = titlesRef[i];
-                using var clondoc = await context.OpenAsync(adress);
- 
-                motherParses[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
+                MotherParse _mother = new();
+                using var doc = GetPage(link);
 
-                motherParses[x].Model = clondoc.QuerySelector(modelSelector)?.FirstChild?.TextContent ?? "n/a";
+                _mother.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                motherParses[x].Socket = clondoc.QuerySelector(socketSelector)?.FirstChild.TextContent ?? "n/a";
+                _mother.Model = doc.QuerySelector(modelSelector).FirstChild?.TextContent ?? "n/a";
 
-                try { motherParses[x].Form = Regex.Replace(clondoc.QuerySelector(formSelector).FirstChild.Text(), @"\W+\d+\D+\d+\D+", ""); }
-                catch (Exception ex) { motherParses[x].Form = clondoc.QuerySelector(formSelectorNull)?.FirstChild?.TextContent ?? "n/a"; };
+                _mother.Socket = doc.QuerySelector(socketSelector).FirstChild?.TextContent ?? "n/a";
 
-                x++;
-                Console.WriteLine($"Итерация = {x}");
+                try { _mother.Form = Regex.Replace(doc.QuerySelector(formSelector).FirstChild.Text(), @"\W+\d+\D+\d+\D+", ""); }
+                catch (Exception ex) { _mother.Form = doc.QuerySelector(formSelectorNull)?.FirstChild?.TextContent ?? "n/a"; };
+
+                try { _mother.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
+                catch (Exception ex) { _mother.Price = 0; }
+
+                Console.WriteLine(_mother.Manufacturer);
+                Console.WriteLine(_mother.Model);
+                Console.WriteLine(_mother.Socket);
+                Console.WriteLine(_mother.Form);
+                Console.WriteLine(_mother.Price);
+                Console.WriteLine(new string('.', 80));
+
+                _mothers.Add(_mother);
             }
             Console.WriteLine("Конец работы");
-            for (int i = 0; i < motherParses.Count; i++)
-            {
-                Console.WriteLine($"Производитель : {motherParses[i].Manufacturer}");
-                Console.WriteLine($"Модель : {motherParses[i].Model}");
-                Console.WriteLine($"Сокет : {motherParses[i].Socket}");
-                Console.WriteLine($"Форм-фактор : {motherParses[i].Form}");
-                Console.WriteLine($"Цена : {motherParses[i].Price}");
-                Console.WriteLine("================================================================");
-            }
+            //foreach (MotherParse mother in _mothers)
+            //{
+            //    Console.WriteLine(mother.Manufacturer);
+            //    Console.WriteLine(mother.Model);
+            //    Console.WriteLine(mother.Socket);
+            //    Console.WriteLine(mother.Form);
+            //    Console.WriteLine(mother.Price);
+            //    Console.WriteLine(new string('.', 80));
+            //}
+
+            //for (int i = 0; i < motherParses.Count; i++)
+            //{
+            //    Console.WriteLine($"Производитель : {motherParses[i].Manufacturer}");
+            //    Console.WriteLine($"Модель : {motherParses[i].Model}");
+            //    Console.WriteLine($"Сокет : {motherParses[i].Socket}");
+            //    Console.WriteLine($"Форм-фактор : {motherParses[i].Form}");
+            //    Console.WriteLine($"Цена : {motherParses[i].Price}");
+            //    Console.WriteLine("================================================================");
+            //}
 
 
 

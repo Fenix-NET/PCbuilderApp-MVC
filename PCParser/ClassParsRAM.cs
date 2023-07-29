@@ -11,63 +11,65 @@ using PCParser.DTOs;
 
 namespace PCParser
 {
-    public class ClassParsRAM
+    public class ClassParsRAM : BaseParseClass
     {
-
+        public List<RAMparse> _rams = new();
         public async Task StartParseRAM()
         {
 
-            Console.WriteLine("Подготовка парсера");
-
-            var config = Configuration.Default.WithDefaultLoader();
-            var adress = "https://tula.nix.ru/price.html?section=memory_modules_all#c_id=182&fn=182&g_id=1022&page=1&sort=%2Bp327%2B1965&spoiler=&store=region-1483_0&thumbnail_view=2";
-            using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(adress);
-            var urlSelector = "a.t";
-            var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
-            var titlesRef = cells.Select(m => m.Href).ToList();
-            var priceSelector = "td.d.tac.cell-price > span"; 
-            var cellsP = document.QuerySelectorAll(priceSelector);
-
-            var titlesPrice = cellsP.Select(m => m.TextContent.Replace(" ", "")).ToList();
-
-            List<RAMparse> RAMs = new List<RAMparse>();
-
+            List<string> listref = GetListRef();
             Console.WriteLine("Начало парсинга RAM");
             var manufacturerSelector = "td#tdsa2943";
             var modelSelector = "td#tdsa2944";                
             var MemorySelector = "td#tdsa3360";
             var DDRSelector = "td#tdsa2510";
-            IElement cellss;
-            int x = 0;
-            for (int i = 0; i < titlesRef.Count; i++)
+            var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
+
+            foreach (string link in listref)
             {
-                RAMs.Add(new RAMparse());
-                RAMs[x].Price = decimal.Parse(titlesPrice[i]);
-                adress = titlesRef[i];
-                using var clondoc = await context.OpenAsync(adress);
-                     
-                RAMs[x].Manufacturer =  clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
+                RAMparse _ram = new();
+                using var doc = GetPage(link);
 
-                RAMs[x].Model = clondoc.QuerySelector(modelSelector).FirstChild.TextContent ?? "n/a";
+                _ram.Manufacturer =  doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                RAMs[x].DDR = clondoc.QuerySelector(DDRSelector).FirstChild.TextContent ?? "n/a";
+                _ram.Model = doc.QuerySelector(modelSelector).FirstChild?.TextContent ?? "n/a";
 
-                RAMs[x].Memory = ushort.Parse(Regex.Replace(clondoc.QuerySelector(MemorySelector).FirstChild.TextContent, @"\D+", ""));         //ushort.Parse(Regex.Replace(cellss.TextContent, @"\D+", ""));
+                _ram.DDR = doc.QuerySelector(DDRSelector).FirstChild?.TextContent ?? "n/a";
 
-                x++;
-                Console.WriteLine($"Итерация = {x}");
+                try {_ram.Memory = ushort.Parse(Regex.Replace(doc.QuerySelector(MemorySelector).FirstChild.TextContent, @"\D+", "")); }
+                catch (Exception ex) { _ram.Memory = 0; }
+
+                try { _ram.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
+                catch (Exception ex) { _ram.Price = 0; }
+
+                Console.WriteLine(_ram.Manufacturer);
+                Console.WriteLine(_ram.Model);
+                Console.WriteLine(_ram.DDR);
+                Console.WriteLine(_ram.Memory);
+                Console.WriteLine(_ram.Price);
+                Console.WriteLine(new string('.', 80));
+
+                _rams.Add(_ram);
             }
             Console.WriteLine("Конец работы");
-            for (int i = 0; i < RAMs.Count; i++)
-            {
-                Console.WriteLine($"Производитель : {RAMs[i].Manufacturer}");
-                Console.WriteLine($"Модель : {RAMs[i].Model}");
-                Console.WriteLine($"Объем памяти : {RAMs[i].Memory}");
-                Console.WriteLine($"Тип памяти : {RAMs[i].DDR}");
-                Console.WriteLine($"Цена : {RAMs[i].Price}");
-                Console.WriteLine("================================================================");
-            }
+            //foreach (RAMparse ram in _rams)
+            //{
+            //    Console.WriteLine(ram.Manufacturer);
+            //    Console.WriteLine(ram.Model);
+            //    Console.WriteLine(ram.DDR);
+            //    Console.WriteLine(ram.Memory);
+            //    Console.WriteLine(ram.Price);
+            //    Console.WriteLine(new string('.', 80));
+            //}
+            //for (int i = 0; i < RAMs.Count; i++)
+            //{
+            //    Console.WriteLine($"Производитель : {RAMs[i].Manufacturer}");
+            //    Console.WriteLine($"Модель : {RAMs[i].Model}");
+            //    Console.WriteLine($"Объем памяти : {RAMs[i].Memory}");
+            //    Console.WriteLine($"Тип памяти : {RAMs[i].DDR}");
+            //    Console.WriteLine($"Цена : {RAMs[i].Price}");
+            //    Console.WriteLine("================================================================");
+            //}
 
         }
 

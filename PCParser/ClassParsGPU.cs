@@ -8,31 +8,18 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PCParser.DTOs;
+using System.Diagnostics.Metrics;
 
 namespace PCParser
 {
-    internal class ClassParsGPU
+    internal class ClassParsGPU : BaseParseClass
     {
 
-
+        public List<GPUparse> _gpus = new();
         public async Task StartParseGPU()
         {
 
-            var config = Configuration.Default.WithDefaultLoader();
-            var adress = "https://tula.nix.ru/price.html?section=video_cards_all#c_id=101&fn=101&g_id=685&page=1&sort=%2Bp965%2B214%2B215&spoiler=&store=region-1483_0&thumbnail_view=2";
-            using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(adress);
-            var urlSelector = "a.t"; //html element to get book names
-            var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
-            var titlesRef = cells.Select(m => m.Href).ToList();
-            var priceSelector = "td.d.tac.cell-price > span"; //html element to get book names
-            var cellsP = document.QuerySelectorAll(priceSelector);
-
-            var titlesPrice = cellsP.Select(m => m.TextContent.Replace(" ", "")).ToList();
-
-            List<GPUparse> GPUs = new List<GPUparse>();
-
-            int x = 0;
+            List<string> listref = GetListRef();
             Console.WriteLine("Начало парсинга GPU");
 
             var manufacturerSelector = "td#tdsa2943";
@@ -41,44 +28,65 @@ namespace PCParser
             var powerSelectorNull = "td#tdsa893";
             var techprocSelector = "td#tdsa3735";
             var memorySelector = "td#tdsa689";
-            IElement cellss;
-            for (int i = 0; i < titlesRef.Count; i++)
+            var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
+
+            foreach (string link in listref)
             {
-                GPUs.Add(new GPUparse());
-                GPUs[x].Price = decimal.Parse(titlesPrice[i]);
-                adress = titlesRef[i];
-                using var clondoc = await context.OpenAsync(adress);
+                GPUparse _gpu = new();
+                using var doc = GetPage(link);
 
-                GPUs[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
+                _gpu.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                GPUs[x].Model = clondoc.QuerySelector(modelSelector)?.FirstChild.TextContent ?? "n/a";
+                _gpu.Model = doc.QuerySelector(modelSelector).FirstChild?.TextContent ?? "n/a";
 
                 try
                 {
-                    GPUs[x].Power = ushort.Parse(Regex.Replace(clondoc.QuerySelector(powerSelector).TextContent, @"\D+", ""));
+                    _gpu.Power = ushort.Parse(Regex.Replace(doc.QuerySelector(powerSelector).TextContent, @"\D+", ""));
                 }
                 catch
                 {
-                    GPUs[x].Power = ushort.Parse(Regex.Replace(clondoc.QuerySelector(powerSelectorNull).TextContent, @"\D+", ""));
+                    try { _gpu.Power = ushort.Parse(Regex.Replace(doc.QuerySelector(powerSelectorNull).TextContent, @"\D+", "")); }
+                    catch { _gpu.Power = 0; }
                 }
-                GPUs[x].Techproc = clondoc.QuerySelector(techprocSelector).TextContent ?? "n/a";
+                _gpu.Techproc = doc.QuerySelector(techprocSelector)?.TextContent ?? "n/a";
 
-                GPUs[x].Memory = clondoc.QuerySelector(memorySelector).TextContent;
+                _gpu.Memory = doc.QuerySelector(memorySelector)?.TextContent ?? "n/a";
 
-                x++;
-                Console.WriteLine($"Итерация = {x}");
+                try { _gpu.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
+                catch (Exception ex) { _gpu.Price = 0; }
+
+                Console.WriteLine(_gpu.Manufacturer);
+                Console.WriteLine(_gpu.Model);
+                Console.WriteLine(_gpu.Power);
+                Console.WriteLine(_gpu.Techproc);
+                Console.WriteLine(_gpu.Memory);
+                Console.WriteLine(_gpu.Price);
+                Console.WriteLine(new string('.', 80));
+
+                _gpus.Add(_gpu);
             }
             Console.WriteLine("Конец работы");
-            for (int i = 0; i < GPUs.Count; i++)
-            {
-                Console.WriteLine($"Производитель : {GPUs[i].Manufacturer}");
-                Console.WriteLine($"Модель : {GPUs[i].Model}");
-                Console.WriteLine($"Потребление энергии : {GPUs[i].Power}");
-                Console.WriteLine($"Техпроцесс : {GPUs[i].Techproc}");
-                Console.WriteLine($"Память : {GPUs[i].Memory}");
-                Console.WriteLine($"Цена : {GPUs[i].Price}");
-                Console.WriteLine("================================================================");
+            //foreach (GPUparse gpu in _gpus)
+            //{
+            //    Console.WriteLine(gpu.Manufacturer);
+            //    Console.WriteLine(gpu.Model);
+            //    Console.WriteLine(gpu.Power);
+            //    Console.WriteLine(gpu.Techproc);
+            //    Console.WriteLine(gpu.Memory);
+            //    Console.WriteLine(gpu.Price);
+            //    Console.WriteLine(new string('.', 80));
             }
+
+            //for (int i = 0; i < GPUs.Count; i++)
+            //{
+            //    Console.WriteLine($"Производитель : {GPUs[i].Manufacturer}");
+            //    Console.WriteLine($"Модель : {GPUs[i].Model}");
+            //    Console.WriteLine($"Потребление энергии : {GPUs[i].Power}");
+            //    Console.WriteLine($"Техпроцесс : {GPUs[i].Techproc}");
+            //    Console.WriteLine($"Память : {GPUs[i].Memory}");
+            //    Console.WriteLine($"Цена : {GPUs[i].Price}");
+            //    Console.WriteLine("================================================================");
+            //}
         }
 
     }

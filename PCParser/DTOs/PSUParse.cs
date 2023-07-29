@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PCParser.DTOs
 {
-    internal class PSUParse
+    public class PSUParse
     {
         public string Manufacturer { get; set; }
 

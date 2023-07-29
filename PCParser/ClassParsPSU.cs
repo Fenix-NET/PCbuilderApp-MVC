@@ -11,61 +11,60 @@ using PCParser.DTOs;
 
 namespace PCParser
 {
-    public class ClassParsPSU
+    public class ClassParsPSU : BaseParseClass
     {
-
+        public List<PSUParse> _psus = new();
         public async Task StartParsePSU()
         {
 
-            Console.WriteLine("Подготовка парсера");
-
-            var config = Configuration.Default.WithDefaultLoader();
-            var adress = "https://tula.nix.ru/price.html?section=power_supplies_all#c_id=772&fn=772&g_id=927&page=1&sort=%2Bp6920%2B127%2B998%2B2289&spoiler=&store=region-1483_0&thumbnail_view=2";
-            using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(adress);
-            var urlSelector = "a.t"; 
-            var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
-            var titlesRef = cells.Select(m => m.Href).ToList();
-            var priceSelector = "td.d.tac.cell-price > span"; 
-            var cellsP = document.QuerySelectorAll(priceSelector);
-
-            var titlesPrice = cellsP.Select(m => m.TextContent.Replace(" ", "")).ToList();
-
-            List<PSUParse> PSUs = new List<PSUParse>();
-
-            int x = 0;
+            List<string> listref = GetListRef();
             Console.WriteLine("Начало парсинга PSU");
 
             var manufacturerSelector = "td#tdsa2943";
             var modelSelector = "td#tdsa2944";                 
             var powerSelector = "td#tdsa2123";
+            var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
 
-            IElement cellss;
-            for (int i = 0; i < titlesRef.Count; i++)
+            foreach (string link in listref)
             {
-                PSUs.Add(new PSUParse());
-                PSUs[x].Price = decimal.Parse(titlesPrice[i]);
-                adress = titlesRef[i];
-                using var clondoc = await context.OpenAsync(adress);
+                PSUParse _psu = new();
+                using var doc = GetPage(link);
 
-                PSUs[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
+                _psu.Manufacturer = doc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 
-                PSUs[x].Model = clondoc.QuerySelector(modelSelector).FirstChild.TextContent ?? "n/a";
+                _psu.Model = doc.QuerySelector(modelSelector).FirstChild.TextContent ?? "n/a";
 
-                PSUs[x].Power = ushort.Parse(Regex.Replace(clondoc.QuerySelector(powerSelector).TextContent, @"\D+", ""));
+                try { _psu.Power = ushort.Parse(Regex.Replace(doc.QuerySelector(powerSelector).TextContent, @"\D+", "")); }
+                catch (Exception ex) { _psu.Power = 0; }
 
-                x++;
-                Console.WriteLine($"Итерация = {x}");
+                try { _psu.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
+                catch (Exception ex) { _psu.Price = 0; }
+
+                Console.WriteLine(_psu.Manufacturer);
+                Console.WriteLine(_psu.Model);
+                Console.WriteLine(_psu.Power);
+                Console.WriteLine(_psu.Price);
+                Console.WriteLine(new string('.', 80));
+
+                _psus.Add(_psu);
             }
             Console.WriteLine("Конец работы");
-            for (int i = 0; i < PSUs.Count; i++)
-            {
-                Console.WriteLine($"Производитель : {PSUs[i].Manufacturer}");
-                Console.WriteLine($"Модель : {PSUs[i].Model}");
-                Console.WriteLine($"Мощность : {PSUs[i].Power}");
-                Console.WriteLine($"Цена : {PSUs[i].Price}");
-                Console.WriteLine("================================================================");
+            //foreach (PSUParse psu in _psus)
+            //{
+            //    Console.WriteLine(psu.Manufacturer);
+            //    Console.WriteLine(psu.Model);
+            //    Console.WriteLine(psu.Power);
+            //    Console.WriteLine(psu.Price);
+            //    Console.WriteLine(new string('.', 80));
             }
+            //for (int i = 0; i < PSUs.Count; i++)
+            //{
+            //    Console.WriteLine($"Производитель : {PSUs[i].Manufacturer}");
+            //    Console.WriteLine($"Модель : {PSUs[i].Model}");
+            //    Console.WriteLine($"Мощность : {PSUs[i].Power}");
+            //    Console.WriteLine($"Цена : {PSUs[i].Price}");
+            //    Console.WriteLine("================================================================");
+            //}
 
 
         }
