@@ -20,9 +20,9 @@ namespace PCParser
             Console.WriteLine("Подготовка парсера");
 
             var config = Configuration.Default.WithDefaultLoader();
-            var address = "https://tula.nix.ru/price.html?section=power_supplies_all#c_id=772&fn=772&g_id=927&page=1&sort=%2Bp6920%2B127%2B998%2B2289&spoiler=&store=region-1483_0&thumbnail_view=2";
+            var adress = "https://tula.nix.ru/price.html?section=power_supplies_all#c_id=772&fn=772&g_id=927&page=1&sort=%2Bp6920%2B127%2B998%2B2289&spoiler=&store=region-1483_0&thumbnail_view=2";
             using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(address);
+            using var document = await context.OpenAsync(adress);
             var urlSelector = "a.t"; 
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -45,8 +45,8 @@ namespace PCParser
             {
                 PSUs.Add(new PSUParse());
                 PSUs[x].Price = decimal.Parse(titlesPrice[i]);
-                address = titlesRef[i];
-                using var clondoc = await context.OpenAsync(address);
+                adress = titlesRef[i];
+                using var clondoc = await context.OpenAsync(adress);
 
                 PSUs[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 

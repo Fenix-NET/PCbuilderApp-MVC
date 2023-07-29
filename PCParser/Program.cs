@@ -14,27 +14,28 @@ using PCParser.DTOs;
 
 Console.WriteLine(new string('.', 80));
 Console.WriteLine("Старт программы");
+TestCPUParse testCPUParse = new TestCPUParse();
+testCPUParse.StartParsCPU();
+//ClassParsGPU classParsGPU = new();
 
-ClassParsGPU classParsGPU = new ClassParsGPU();
+//await classParsGPU.StartParseGPU();
+//ClassParsCPU classParsCPU = new();
+//Console.WriteLine(new string('.', 80));
+//await classParsCPU.StartParsCPU();
+//ClassParseMother classParseMother = new();
+//Console.WriteLine(new string('.', 80));
+//await classParseMother.StartParsMother();
+//ClassParsPSU classParsPSU = new();
+//Console.WriteLine(new string('.', 80));
+//await classParsPSU.StartParsePSU();
+//ClassParsRAM classParsRAM = new();
+//Console.WriteLine(new string('.', 80));
+//await classParsRAM.StartParseRAM();
+//ClassParsCase classParsCase = new();
+//Console.WriteLine(new string('.', 80));
+//await classParsCase.StartParsCase();
 
-await classParsGPU.StartParseGPU();
-ClassParsCPU classParsCPU = new ClassParsCPU();
-Console.WriteLine(new string('.', 80));
-await classParsCPU.StartParsCPU();
-ClassParseMother classParseMother = new ClassParseMother();
-Console.WriteLine(new string('.', 80));
-await classParseMother.StartParsMother();
-ClassParsPSU classParsPSU = new ClassParsPSU();
-Console.WriteLine(new string('.', 80));
-await classParsPSU.StartParsePSU();
-ClassParsRAM classParsRAM = new ClassParsRAM(); 
-Console.WriteLine(new string('.', 80));
-await classParsRAM.StartParseRAM();
-ClassParsCase classParsCase = new ClassParsCase();
-Console.WriteLine(new string('.', 80));
-await classParsCase.StartParsCase();
-
-Console.WriteLine(new string('.', 80));
+//Console.WriteLine(new string('.', 80));
 //Console.WriteLine("Начало парсинга CPU");
 //address = "https://www.xcom-shop.ru/catalog/collections/cpu_for_games/";  //url каталога CPU
 //document = await context.OpenAsync(address);

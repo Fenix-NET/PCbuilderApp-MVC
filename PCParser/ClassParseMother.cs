@@ -14,23 +14,20 @@ namespace PCParser
     internal class ClassParseMother                     //Оптимизация работы и времени отклика.
     {                                                   
                                                     
-
-
         public async Task StartParsMother()
         {
             Console.WriteLine("Подготовка паарсера");
 
             var config = Configuration.Default.WithDefaultLoader();
-            var address = "https://tula.nix.ru/price.html?section=motherboards_all#c_id=102&fn=102&g_id=4&page=1&sort=%2Bp79%2B1011%2B1008%2B127%2B1769&spoiler=&store=region-1483_0&thumbnail_view=2";
+            var adress = "https://tula.nix.ru/price.html?section=motherboards_all#c_id=102&fn=102&g_id=4&page=1&sort=%2Bp79%2B1011%2B1008%2B127%2B1769&spoiler=&store=region-1483_0&thumbnail_view=2";
             using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(address);
+            using var document = await context.OpenAsync(adress);
 
             var urlSelector = "a.t"; 
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
             var priceSelector = "td.d.tac.cell-price > span"; 
             var cellsP = document.QuerySelectorAll(priceSelector);
-
 
             var titlesPrice = cellsP.Select(m => m.TextContent.Replace(" ", "")).ToList();
 
@@ -48,15 +45,14 @@ namespace PCParser
             {
                 motherParses.Add(new MotherParse());
                 motherParses[x].Price = decimal.Parse(titlesPrice[i]);
-                address = titlesRef[i];
-                using var clondoc = await context.OpenAsync(address);
+                adress = titlesRef[i];
+                using var clondoc = await context.OpenAsync(adress);
  
                 motherParses[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 
                 motherParses[x].Model = clondoc.QuerySelector(modelSelector)?.FirstChild?.TextContent ?? "n/a";
 
                 motherParses[x].Socket = clondoc.QuerySelector(socketSelector)?.FirstChild.TextContent ?? "n/a";
-
 
                 try { motherParses[x].Form = Regex.Replace(clondoc.QuerySelector(formSelector).FirstChild.Text(), @"\W+\d+\D+\d+\D+", ""); }
                 catch (Exception ex) { motherParses[x].Form = clondoc.QuerySelector(formSelectorNull)?.FirstChild?.TextContent ?? "n/a"; };

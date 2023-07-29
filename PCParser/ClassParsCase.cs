@@ -16,12 +16,12 @@ namespace PCParser
         public async Task StartParsCase()
         {
 
-            Console.WriteLine("Подготовка паарсера");
+            Console.WriteLine("Подготовка парсера");
 
             var config = Configuration.Default.WithDefaultLoader();
-            var address = "https://tula.nix.ru/price.html?section=cases_all#c_id=166&fn=166&g_id=2000&page=1&sort=%2Bp1764%2B1769&spoiler=&store=region-1483_0&thumbnail_view=2";
+            var adress = "https://tula.nix.ru/price.html?section=cases_all#c_id=166&fn=166&g_id=2000&page=1&sort=%2Bp1764%2B1769&spoiler=&store=region-1483_0&thumbnail_view=2";
             using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(address);
+            using var document = await context.OpenAsync(adress);
             var urlSelector = "a.t";
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -43,15 +43,12 @@ namespace PCParser
             {
                 caseParses.Add(new Caseparse());
                 caseParses[x].Price = decimal.Parse(titlesPrice[i]);
-                address = titlesRef[i];
-                using var clondoc = await context.OpenAsync(address);
-              
-                
+                adress = titlesRef[i];
+                using var clondoc = await context.OpenAsync(adress);
+                           
                 caseParses[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 
-
                 caseParses[x].Model = clondoc.QuerySelector(modelSelector).FirstChild.TextContent ?? "n/a";
-
 
                 caseParses[x].Form = clondoc.QuerySelector(formSelector).TextContent ?? "n/a";
 

@@ -14,13 +14,14 @@ namespace PCParser
     internal class ClassParsGPU
     {
 
+
         public async Task StartParseGPU()
         {
 
             var config = Configuration.Default.WithDefaultLoader();
-            var address = "https://tula.nix.ru/price.html?section=video_cards_all#c_id=101&fn=101&g_id=685&page=1&sort=%2Bp965%2B214%2B215&spoiler=&store=region-1483_0&thumbnail_view=2";
+            var adress = "https://tula.nix.ru/price.html?section=video_cards_all#c_id=101&fn=101&g_id=685&page=1&sort=%2Bp965%2B214%2B215&spoiler=&store=region-1483_0&thumbnail_view=2";
             using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(address);
+            using var document = await context.OpenAsync(adress);
             var urlSelector = "a.t"; //html element to get book names
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -35,7 +36,7 @@ namespace PCParser
             Console.WriteLine("Начало парсинга GPU");
 
             var manufacturerSelector = "td#tdsa2943";
-            var modelSelector = "td#tdsa2944";                 //"td#tdsa2944 <a.btn btn-i btn-t-1 btn-c-1 btn-c-2-b"
+            var modelSelector = "td#tdsa2944";                 
             var powerSelector = "td#tdsa44456";
             var powerSelectorNull = "td#tdsa893";
             var techprocSelector = "td#tdsa3735";
@@ -45,8 +46,8 @@ namespace PCParser
             {
                 GPUs.Add(new GPUparse());
                 GPUs[x].Price = decimal.Parse(titlesPrice[i]);
-                address = titlesRef[i];
-                using var clondoc = await context.OpenAsync(address);
+                adress = titlesRef[i];
+                using var clondoc = await context.OpenAsync(adress);
 
                 GPUs[x].Manufacturer = clondoc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
@@ -61,6 +62,7 @@ namespace PCParser
                     GPUs[x].Power = ushort.Parse(Regex.Replace(clondoc.QuerySelector(powerSelectorNull).TextContent, @"\D+", ""));
                 }
                 GPUs[x].Techproc = clondoc.QuerySelector(techprocSelector).TextContent ?? "n/a";
+
                 GPUs[x].Memory = clondoc.QuerySelector(memorySelector).TextContent;
 
                 x++;

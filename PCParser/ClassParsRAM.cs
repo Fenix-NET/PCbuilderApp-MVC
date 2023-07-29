@@ -20,9 +20,9 @@ namespace PCParser
             Console.WriteLine("Подготовка парсера");
 
             var config = Configuration.Default.WithDefaultLoader();
-            var address = "https://tula.nix.ru/price.html?section=memory_modules_all#c_id=182&fn=182&g_id=1022&page=1&sort=%2Bp327%2B1965&spoiler=&store=region-1483_0&thumbnail_view=2";
+            var adress = "https://tula.nix.ru/price.html?section=memory_modules_all#c_id=182&fn=182&g_id=1022&page=1&sort=%2Bp327%2B1965&spoiler=&store=region-1483_0&thumbnail_view=2";
             using var context = BrowsingContext.New(config);
-            using var document = await context.OpenAsync(address);
+            using var document = await context.OpenAsync(adress);
             var urlSelector = "a.t";
             var cells = document.QuerySelectorAll(urlSelector).OfType<IHtmlAnchorElement>();
             var titlesRef = cells.Select(m => m.Href).ToList();
@@ -44,8 +44,8 @@ namespace PCParser
             {
                 RAMs.Add(new RAMparse());
                 RAMs[x].Price = decimal.Parse(titlesPrice[i]);
-                address = titlesRef[i];
-                using var clondoc = await context.OpenAsync(address);
+                adress = titlesRef[i];
+                using var clondoc = await context.OpenAsync(adress);
                      
                 RAMs[x].Manufacturer =  clondoc.QuerySelector(manufacturerSelector).TextContent ?? "n/a";
 
