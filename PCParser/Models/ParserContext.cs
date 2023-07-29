@@ -23,6 +23,12 @@ namespace PCParser.Models
         public DbSet<Motherboard> Motherboards { get; set; }
         public DbSet<PSU> PSUs { get; set; }
         public DbSet<RAM> RAMs { get; set; }
+        public DbSet<ImageCase> ImageCases { get; set; }
+        public DbSet<ImageCPU> ImageCPUs { get; set; }
+        public DbSet<ImageGPU> ImageGPUs { get; set; }
+        public DbSet<ImageMotherboard> ImageMotherboards { get; set; }
+        public DbSet<ImagePSU> ImagePSUs { get; set; }
+        public DbSet<ImageRAM> ImageRAMs { get; set; }
 
     }
 }
