@@ -25,6 +25,8 @@ namespace PCParser
             var modelSelector = "td#tdsa2944";                
             var formSelector = "td#tdsa2510";
             var modelSelectornull = "td#tdsa2944";
+            var massSelector = "td#tdsa1672";
+            var materialSelector = "td#tdsa2399";
             var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
 
             foreach (string link in listref)
@@ -36,7 +38,11 @@ namespace PCParser
 
                 _case.Model = doc.QuerySelector(modelSelector)?.FirstChild?.TextContent ?? "n/a";
 
-                _case.Form = doc.QuerySelector(formSelector).FirstChild?.TextContent ?? "n/a";
+                _case.Form = doc.QuerySelector(formSelector)?.FirstChild?.TextContent ?? "n/a";
+
+                _case.Mass = doc.QuerySelector(massSelector)?.FirstChild?.TextContent ?? "n/a";
+
+                _case.Materials = doc.QuerySelector(materialSelector)?.FirstChild?.TextContent ?? "n/a";
 
                 // string price = Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "");
                 try {_case.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
@@ -45,6 +51,8 @@ namespace PCParser
                 Console.WriteLine(_case.Manufacturer);
                 Console.WriteLine(_case.Model);
                 Console.WriteLine(_case.Form);
+                Console.WriteLine(_case.Mass);
+                Console.WriteLine(_case.Materials);
                 Console.WriteLine(_case.Price);
                 Console.WriteLine(new string('.', 80));
 

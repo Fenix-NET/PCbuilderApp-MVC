@@ -10,7 +10,12 @@ namespace PCParser.DTOs
 
         public string? Hherz { get; set; }
 
+        public sbyte Core { get; set; }
+
+        public sbyte Streams { get; set; }
+
         public string? Socket { get; set; }
+        public string Mass { get; set; }
 
         public decimal Price { get; set; }
 

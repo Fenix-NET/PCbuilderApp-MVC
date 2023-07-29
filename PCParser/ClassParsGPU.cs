@@ -23,11 +23,13 @@ namespace PCParser
             Console.WriteLine("Начало парсинга GPU");
 
             var manufacturerSelector = "td#tdsa2943";
-            var modelSelector = "td#tdsa2944";                 
+            var modelSelector = "td#tdsa2944";
             var powerSelector = "td#tdsa44456";
             var powerSelectorNull = "td#tdsa893";
             var techprocSelector = "td#tdsa3735";
             var memorySelector = "td#tdsa689";
+            var memoryTypeSelector = "td#tdsa4187";
+            var massSelector = "td#tdsa1672";
             var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
 
             foreach (string link in listref)
@@ -37,7 +39,7 @@ namespace PCParser
 
                 _gpu.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                _gpu.Model = doc.QuerySelector(modelSelector).FirstChild?.TextContent ?? "n/a";
+                _gpu.Model = doc.QuerySelector(modelSelector)?.FirstChild?.TextContent ?? "n/a";
 
                 try
                 {
@@ -52,6 +54,10 @@ namespace PCParser
 
                 _gpu.Memory = doc.QuerySelector(memorySelector)?.TextContent ?? "n/a";
 
+                _gpu.MemoryType = doc.QuerySelector(memoryTypeSelector)?.FirstChild?.TextContent ?? "n/a";
+
+                _gpu.Mass = doc.QuerySelector(massSelector)?.FirstChild?.TextContent ?? "n/a";
+
                 try { _gpu.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
                 catch (Exception ex) { _gpu.Price = 0; }
 
@@ -60,6 +66,8 @@ namespace PCParser
                 Console.WriteLine(_gpu.Power);
                 Console.WriteLine(_gpu.Techproc);
                 Console.WriteLine(_gpu.Memory);
+                Console.WriteLine(_gpu.MemoryType);
+                Console.WriteLine(_gpu.Mass);
                 Console.WriteLine(_gpu.Price);
                 Console.WriteLine(new string('.', 80));
 
@@ -75,7 +83,7 @@ namespace PCParser
             //    Console.WriteLine(gpu.Memory);
             //    Console.WriteLine(gpu.Price);
             //    Console.WriteLine(new string('.', 80));
-            }
+
 
             //for (int i = 0; i < GPUs.Count; i++)
             //{
@@ -88,9 +96,9 @@ namespace PCParser
             //    Console.WriteLine("================================================================");
             //}
         }
-
     }
 }
+
 
 
 

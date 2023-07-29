@@ -22,7 +22,9 @@ namespace PCParser
             var manufacturerSelector = "td#tdsa2943";
             var modelSelector = "td#tdsa2944";                
             var MemorySelector = "td#tdsa3360";
+            var NmodulSelector = "td#tdsa4273";
             var DDRSelector = "td#tdsa2510";
+            var massSelector = "td#tdsa1672";
             var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
 
             foreach (string link in listref)
@@ -32,12 +34,17 @@ namespace PCParser
 
                 _ram.Manufacturer =  doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                _ram.Model = doc.QuerySelector(modelSelector).FirstChild?.TextContent ?? "n/a";
+                _ram.Model = doc.QuerySelector(modelSelector)?.FirstChild?.TextContent ?? "n/a";
 
-                _ram.DDR = doc.QuerySelector(DDRSelector).FirstChild?.TextContent ?? "n/a";
+                _ram.DDR = doc.QuerySelector(DDRSelector)?.FirstChild?.TextContent ?? "n/a";
 
                 try {_ram.Memory = ushort.Parse(Regex.Replace(doc.QuerySelector(MemorySelector).FirstChild.TextContent, @"\D+", "")); }
                 catch (Exception ex) { _ram.Memory = 0; }
+
+                try {_ram.Nmodule =  byte.Parse(doc.QuerySelector(NmodulSelector)?.FirstChild.TextContent); }
+                catch(Exception ex) { _ram.Nmodule = 0;}
+
+                _ram.Mass = doc.QuerySelector(massSelector)?.FirstChild?.TextContent ?? "n/a";
 
                 try { _ram.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
                 catch (Exception ex) { _ram.Price = 0; }
@@ -46,6 +53,8 @@ namespace PCParser
                 Console.WriteLine(_ram.Model);
                 Console.WriteLine(_ram.DDR);
                 Console.WriteLine(_ram.Memory);
+                Console.WriteLine(_ram.Nmodule);
+                Console.WriteLine(_ram.Mass);
                 Console.WriteLine(_ram.Price);
                 Console.WriteLine(new string('.', 80));
 

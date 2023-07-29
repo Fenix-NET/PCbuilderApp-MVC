@@ -27,6 +27,7 @@ namespace PCParser
             var socketSelector = "td#tdsa1307";
             var formSelector = "td#tdsa643";
             var formSelectorNull = "td#tdsa25875";
+            var massSelector = "td#tdsa1672";
             var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
 
             foreach (string link in listref)
@@ -36,12 +37,14 @@ namespace PCParser
 
                 _mother.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                _mother.Model = doc.QuerySelector(modelSelector).FirstChild?.TextContent ?? "n/a";
+                _mother.Model = doc.QuerySelector(modelSelector)?.FirstChild?.TextContent ?? "n/a";
 
-                _mother.Socket = doc.QuerySelector(socketSelector).FirstChild?.TextContent ?? "n/a";
+                _mother.Socket = doc.QuerySelector(socketSelector)?.FirstChild?.TextContent ?? "n/a";
 
                 try { _mother.Form = Regex.Replace(doc.QuerySelector(formSelector).FirstChild.Text(), @"\W+\d+\D+\d+\D+", ""); }
                 catch (Exception ex) { _mother.Form = doc.QuerySelector(formSelectorNull)?.FirstChild?.TextContent ?? "n/a"; };
+
+                _mother.Mass = doc.QuerySelector(massSelector)?.FirstChild?.TextContent ?? "n/a";
 
                 try { _mother.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
                 catch (Exception ex) { _mother.Price = 0; }
@@ -50,6 +53,7 @@ namespace PCParser
                 Console.WriteLine(_mother.Model);
                 Console.WriteLine(_mother.Socket);
                 Console.WriteLine(_mother.Form);
+                Console.WriteLine(_mother.Mass);
                 Console.WriteLine(_mother.Price);
                 Console.WriteLine(new string('.', 80));
 

@@ -21,7 +21,10 @@ namespace PCParser
             var manufacturerSelector = "td#tdsa2943";
             var modelSelector = "td#tdsa2944";
             var hherzSelector = "td#tdsa3808";
+            var coreSelector = "td#tdsa2557";
+            var streamsSelector = "td#tdsa23450";
             var socketSelector = "td#tdsa1307";
+            var massSelector = "td#tdsa1672";
             var priceSelector = "a.add_to_cart.btn.btn-t-0.btn-c-6.CanBeSold.pc-component";
 
             foreach (string link in listref)
@@ -31,18 +34,29 @@ namespace PCParser
 
                 _cpu.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
 
-                _cpu.Model = doc.QuerySelector(modelSelector).FirstChild?.TextContent ?? "n/a";
+                _cpu.Model = doc.QuerySelector(modelSelector)?.FirstChild?.TextContent ?? "n/a";
 
                 _cpu.Hherz = doc.QuerySelector(hherzSelector)?.FirstChild?.TextContent ?? "n/a";
 
+                try { _cpu.Core = sbyte.Parse(doc.QuerySelector(coreSelector)?.FirstChild.TextContent); }
+                catch { _cpu.Core = 0; }
+
+                try {_cpu.Streams = sbyte.Parse(doc.QuerySelector(streamsSelector)?.FirstChild.TextContent); }
+                catch { _cpu.Streams = 0; }
+
                 _cpu.Socket = doc.QuerySelector(socketSelector).FirstChild?.TextContent ?? "n/a";
+
+                _cpu.Mass = doc.QuerySelector(massSelector).FirstChild?.TextContent ?? "n/a";
 
                 try { _cpu.Price = decimal.Parse(Regex.Replace(doc.QuerySelector(priceSelector)?.TextContent, @"\D+", "")); }
                 catch (Exception ex) { _cpu.Price = 0; }
                 Console.WriteLine(_cpu.Manufacturer);
                 Console.WriteLine(_cpu.Model);
                 Console.WriteLine(_cpu.Hherz);
+                Console.WriteLine(_cpu.Core);
+                Console.WriteLine(_cpu.Streams);
                 Console.WriteLine(_cpu.Socket);
+                Console.WriteLine(_cpu.Mass);
                 Console.WriteLine(_cpu.Price);
                 Console.WriteLine(new string('.', 80));
 

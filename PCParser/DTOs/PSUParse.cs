@@ -13,6 +13,9 @@ namespace PCParser.DTOs
         public string Model { get; set; }
 
         public ushort Power { get; set; }
+        public string Mass { get; set; }
+
+        public string Sertificate { get; set; }
         public decimal Price { get; set; }
 
     }

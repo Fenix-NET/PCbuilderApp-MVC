@@ -13,6 +13,7 @@ namespace PCParser.DTOs
         public string Model { get; set; }
         public string Socket { get; set; }
         public string Form { get; set; }
+        public string Mass { get; set; }
         public decimal Price { get; set; }
 
     }
