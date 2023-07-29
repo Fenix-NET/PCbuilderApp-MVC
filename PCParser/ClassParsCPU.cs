@@ -8,13 +8,20 @@ using System.Threading.Tasks;
 using AngleSharp.Dom;
 using System.Text.RegularExpressions;
 using PCParser.DTOs;
+using PCParser.Models;
 
 namespace PCParser
 {
     public class ClassParsCPU : BaseParseClass
     {
-        public List<CPUparse> _cpus = new();
-        public async Task StartParsCPU()
+        //private readonly ParserContext _parserContext;
+
+        ////public List<CPU> _cpus = new();
+        //public ClassParsCPU()
+        //{
+        //    _parserContext = new ParserContext();
+        //}
+        public async Task StartParsCPU(ParserContext _context)
         {
             List<string> listref = GetListRef();
             Console.WriteLine("Начало парсинга CPU");
@@ -29,7 +36,7 @@ namespace PCParser
 
             foreach (string link in listref)
             {
-                CPUparse _cpu = new();
+                Models.CPU _cpu = new();
                 using var doc = GetPage(link);
 
                 _cpu.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
@@ -60,8 +67,10 @@ namespace PCParser
                 Console.WriteLine(_cpu.Price);
                 Console.WriteLine(new string('.', 80));
 
-                _cpus.Add(_cpu);
+                _context.CPUs.Add(_cpu);
+                
             }
+            _context.SaveChanges();
             Console.WriteLine("Конец работы");
             //foreach (CPUparse cpu in _cpus)
             //{

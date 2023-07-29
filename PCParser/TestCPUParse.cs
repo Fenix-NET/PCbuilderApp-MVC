@@ -13,7 +13,7 @@ namespace PCParser
     public class TestCPUParse : BaseParseClass
     {
 
-        public List<CPUparse> _cpus = new();
+        public List<CPU> _cpus = new();
         public TestCPUParse() { }
         public async Task StartParsCPU()
         {
@@ -25,7 +25,7 @@ namespace PCParser
 
             foreach(string link in listref) 
             {
-                CPUparse _cpu = new();
+                CPU _cpu = new();
                 using var doc = GetPage(link);
 
                 _cpu.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
@@ -38,7 +38,7 @@ namespace PCParser
                 _cpus.Add( _cpu );
             }
             Console.WriteLine("Конец работы");
-            foreach(CPUparse cPUparse in _cpus)
+            foreach(CPU cPUparse in _cpus)
             {
                 Console.WriteLine(cPUparse.Manufacturer);
                 Console.WriteLine(cPUparse.Model);

@@ -9,14 +9,20 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PCParser.DTOs;
 using System.Diagnostics.Metrics;
+using PCParser.Models;
 
 namespace PCParser
 {
-    internal class ClassParsGPU : BaseParseClass
+    public class ClassParsGPU : BaseParseClass
     {
 
-        public List<GPUparse> _gpus = new();
-        public async Task StartParseGPU()
+       // public List<GPU> _gpus = new();
+        //private readonly ParserContext _parserContext;
+        //public ClassParsGPU()
+        //{
+        //    _parserContext = new ParserContext();
+        //}
+        public async Task StartParseGPU(ParserContext _context)
         {
 
             List<string> listref = GetListRef();
@@ -34,7 +40,7 @@ namespace PCParser
 
             foreach (string link in listref)
             {
-                GPUparse _gpu = new();
+                Models.GPU _gpu = new();
                 using var doc = GetPage(link);
 
                 _gpu.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
@@ -71,8 +77,10 @@ namespace PCParser
                 Console.WriteLine(_gpu.Price);
                 Console.WriteLine(new string('.', 80));
 
-                _gpus.Add(_gpu);
+                _context.GPUs.Add(_gpu);
+                
             }
+            _context.SaveChanges();
             Console.WriteLine("Конец работы");
             //foreach (GPUparse gpu in _gpus)
             //{

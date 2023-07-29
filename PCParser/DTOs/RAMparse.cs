@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PCParser.DTOs
 {
-    public class RAMparse
+    public class RAM
     {
         public string Manufacturer { get; set; }
         public string Model { get; set; }

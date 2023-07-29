@@ -8,13 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using PCParser.Models;
 
 namespace PCParser
 {
     public class ClassParsCase : BaseParseClass
     {
-        public List<Caseparse> _cases = new();
-        public async Task StartParsCase()
+        //public List<Case> _cases = new();
+        //private readonly ParserContext _parserContext;
+        //public ClassParsCase()
+        //{
+        //    _parserContext = new ParserContext();
+        //}
+        public async Task StartParsCase(ParserContext _context)
         {
             Console.WriteLine("Подготовка парсера");
 
@@ -31,7 +37,7 @@ namespace PCParser
 
             foreach (string link in listref)
             {
-                Caseparse _case = new();
+                Models.Case _case = new();
                 using var doc = GetPage(link);
 
                 _case.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
@@ -56,9 +62,10 @@ namespace PCParser
                 Console.WriteLine(_case.Price);
                 Console.WriteLine(new string('.', 80));
 
-                _cases.Add(_case);
+                _context.Cases.Add(_case);
                 
             }
+            _context.SaveChanges();
             Console.WriteLine("Конец работы");
             //foreach (Caseparse casee in _cases)
             //{

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PCParser.DTOs
 {
-    internal class MotherParse
+    public class Motherboard
     {
         public string Manufacturer { get; set; }
         public string Model { get; set; }

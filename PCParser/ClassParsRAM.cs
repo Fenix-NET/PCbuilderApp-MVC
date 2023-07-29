@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using PCParser.DTOs;
+using PCParser.Models;
 
 namespace PCParser
 {
     public class ClassParsRAM : BaseParseClass
     {
-        public List<RAMparse> _rams = new();
-        public async Task StartParseRAM()
+       // public List<RAM> _rams = new();
+        //private readonly ParserContext _parserContext;
+        //public ClassParsRAM()
+        //{
+        //    _parserContext = new ParserContext();
+        //}
+        public async Task StartParseRAM(ParserContext _context)
         {
 
             List<string> listref = GetListRef();
@@ -29,7 +35,7 @@ namespace PCParser
 
             foreach (string link in listref)
             {
-                RAMparse _ram = new();
+                Models.RAM _ram = new();
                 using var doc = GetPage(link);
 
                 _ram.Manufacturer =  doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
@@ -58,8 +64,10 @@ namespace PCParser
                 Console.WriteLine(_ram.Price);
                 Console.WriteLine(new string('.', 80));
 
-                _rams.Add(_ram);
+                _context.RAMs.Add(_ram);
+                
             }
+            _context.SaveChanges();
             Console.WriteLine("Конец работы");
             //foreach (RAMparse ram in _rams)
             //{

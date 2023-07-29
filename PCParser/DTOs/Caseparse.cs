@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PCParser.DTOs
 {
-    public class Caseparse
+    public class Case
     {
         public string Manufacturer { get; set; }
         public string Model { get; set; }

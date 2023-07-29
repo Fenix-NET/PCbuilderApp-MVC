@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PCParser.DTOs
+namespace PCParser.Models
 {
     public class GPU
     {
+        public int Id { get; set; }
         public string? Manufacturer { get; set; }
 
         public string? Model { get; set; }

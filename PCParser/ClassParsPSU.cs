@@ -8,13 +8,19 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PCParser.DTOs;
+using PCParser.Models;
 
 namespace PCParser
 {
     public class ClassParsPSU : BaseParseClass
     {
-        public List<PSUParse> _psus = new();
-        public async Task StartParsePSU()
+        //public List<PSU> _psus = new();
+        //private readonly ParserContext _parserContext;
+        //public ClassParsPSU()
+        //{
+        //    _parserContext = new ParserContext();
+        //}
+        public async Task StartParsePSU(ParserContext _context)
         {
 
             List<string> listref = GetListRef();
@@ -29,7 +35,7 @@ namespace PCParser
 
             foreach (string link in listref)
             {
-                PSUParse _psu = new();
+                Models.PSU _psu = new();
                 using var doc = GetPage(link);
 
                 _psu.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
@@ -55,8 +61,10 @@ namespace PCParser
                 Console.WriteLine(_psu.Price);
                 Console.WriteLine(new string('.', 80));
 
-                _psus.Add(_psu);
+                _context.PSUs.Add(_psu);
+                
             }
+            _context.SaveChanges();
             Console.WriteLine("Конец работы");
             //foreach (PSUParse psu in _psus)
             //{

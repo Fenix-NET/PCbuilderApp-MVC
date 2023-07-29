@@ -9,13 +9,19 @@ using System.Threading.Tasks;
 using PCParser.DTOs;
 using System.Text.RegularExpressions;
 using System.Diagnostics.Metrics;
+using PCParser.Models;
 
 namespace PCParser
 {                                                       //Выделение общей логики в отдельные сервисы
-    internal class ClassParseMother : BaseParseClass                   //Оптимизация работы и времени отклика.
+    public class ClassParseMother : BaseParseClass                   //Оптимизация работы и времени отклика.
     {
-        public List<MotherParse> _mothers = new();
-        public async Task StartParsMother()
+       // public List<Motherboard> _mothers = new();
+        //private readonly ParserContext _parserContext;
+        //public ClassParseMother()
+        //{
+        //    _parserContext = new ParserContext();
+        //}
+        public async Task StartParsMother(ParserContext _context)
         {
             Console.WriteLine("Подготовка парсера");
 
@@ -32,7 +38,7 @@ namespace PCParser
 
             foreach (string link in listref)
             {
-                MotherParse _mother = new();
+                Models.Motherboard _mother = new();
                 using var doc = GetPage(link);
 
                 _mother.Manufacturer = doc.QuerySelector(manufacturerSelector)?.TextContent ?? "n/a";
@@ -57,9 +63,11 @@ namespace PCParser
                 Console.WriteLine(_mother.Price);
                 Console.WriteLine(new string('.', 80));
 
-                _mothers.Add(_mother);
+                _context.Motherboards.Add(_mother);
+                
             }
-            Console.WriteLine("Конец работы");
+            _context.SaveChanges();
+             Console.WriteLine("Конец работы");
             //foreach (MotherParse mother in _mothers)
             //{
             //    Console.WriteLine(mother.Manufacturer);

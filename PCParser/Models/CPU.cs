@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PCParser.DTOs
+namespace PCParser.Models
 {
     public class CPU
     {
+        public int Id { get; set; }
         public string? Manufacturer { get; set; }
 
         public string? Model { get; set; }
