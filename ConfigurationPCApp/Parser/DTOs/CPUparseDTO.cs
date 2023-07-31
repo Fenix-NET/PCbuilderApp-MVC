@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ConfigurationPCApp.Parser.DTOs
+namespace PCBuilderApp.Parser.DTOs
 {
     public class CPUparseDTO
     {

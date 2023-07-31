@@ -1,15 +1,8 @@
-﻿using AngleSharp.Dom;
-using PCParser.Models;
+﻿using PCParser.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Flurl.Http;
-using static System.Net.Mime.MediaTypeNames;
 using System.Text.RegularExpressions;
 
 namespace PCParser

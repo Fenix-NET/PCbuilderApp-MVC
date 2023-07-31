@@ -1,13 +1,7 @@
-﻿using AngleSharp.Html.Dom;
-using AngleSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using AngleSharp.Dom;
 using System.Text.RegularExpressions;
-using PCParser.DTOs;
 using PCParser.Models;
 
 namespace PCParser

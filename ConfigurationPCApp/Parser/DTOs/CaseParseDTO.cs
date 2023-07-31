@@ -1,4 +1,4 @@
-﻿namespace ConfigurationPCApp.DTOs
+﻿namespace PCBuilderApp.Parser.DTOs
 {
     public class CaseParseDTO
     {

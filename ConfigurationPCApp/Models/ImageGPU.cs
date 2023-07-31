@@ -1,4 +1,4 @@
-﻿namespace PCParser.Models
+﻿namespace PCBuilderApp.Models
 {
     public class ImageGPU
     {

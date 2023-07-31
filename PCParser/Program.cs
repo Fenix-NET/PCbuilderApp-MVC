@@ -1,16 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using AngleSharp;
-using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
 using PCParser;
-using System.ComponentModel;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Linq;
 using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using PCParser;
 using PCParser.Models;
 
 

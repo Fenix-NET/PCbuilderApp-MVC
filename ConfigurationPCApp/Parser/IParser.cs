@@ -1,4 +1,4 @@
-﻿namespace ConfigurationPCApp.Parser
+﻿namespace PCBuilderApp.Parser
 {
     public interface IParser
     {

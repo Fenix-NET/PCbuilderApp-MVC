@@ -1,14 +1,8 @@
 ﻿
 using AngleSharp;
-using AngleSharp.Browser;
-using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
-using ConfigurationPCApp.Parser.DTOs;
-using System.ComponentModel;
-using System.Text;
-using System.Text.RegularExpressions;
 
-namespace ConfigurationPCApp.Parser
+namespace PCBuilderApp.Parser
 {
     public class Parser : IParser
     {
@@ -81,7 +75,7 @@ namespace ConfigurationPCApp.Parser
         //    x++;
 
     }
-}        
-        
-       
-    
+}
+
+
+

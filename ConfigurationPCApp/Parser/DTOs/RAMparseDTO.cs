@@ -1,4 +1,4 @@
-﻿namespace ConfigurationPCApp.Parser.DTOs
+﻿namespace PCBuilderApp.Parser.DTOs
 {
     public class RAMparseDTO
     {
