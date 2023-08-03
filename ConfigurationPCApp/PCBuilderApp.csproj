@@ -34,9 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Pages\" />
-    <Folder Include="View\" />
   </ItemGroup>
 
   <ItemGroup>

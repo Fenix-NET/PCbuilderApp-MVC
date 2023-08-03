@@ -4,28 +4,31 @@ using PCBuilderApp.Data;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PCBuilderContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConfigurationPCContext") ?? throw new InvalidOperationException("Connection string 'ConfigurationPCContext' not found.")));
-builder.Services.AddControllers();
-builder.Services.AddRazorPages();
 
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-app.UseRouting();
+
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        options.RoutePrefix = string.Empty;
-
-    });
+    app.UseDeveloperExceptionPage();
 }
-
-
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+}
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthorization();
+//app.UseEndpoints(routes =>
+//{
+//    routes.MapRoute(
+//        name: "default",
+//        template: "{controller=Home}/{action=Index}/{id?}");
+//});
 
 app.MapControllerRoute(
     name: "default",
