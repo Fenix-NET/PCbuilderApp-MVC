@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PCBuilderApp.Models
+namespace PcBuilderApp.Models
 {
-    public class CPU
+    public class Cpu
     {
         public int Id { get; set; }
         public string? Manufacturer { get; set; }
+        public string Name { get; set; }
 
         public string? Model { get; set; }
 
@@ -19,6 +20,11 @@ namespace PCBuilderApp.Models
         public string Mass { get; set; }
 
         public decimal Price { get; set; }
+        public string Image { get; set; }
+
+        public int ImageCpuId { get; set; }
+
+        public ImageCpu ImageCpu { get; set; }
 
     }
 }

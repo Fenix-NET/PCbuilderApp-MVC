@@ -1,19 +1,27 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PcBuilderApp.Data;
 
-namespace PCBuilderApp.Controllers
+namespace PcBuilderApp.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly PcBuilderContext _context;
         // GET: HomeController
+        public HomeController() 
+        {
+
+        }
         public ActionResult Index()
         {
             return View();
         }
 
         // GET: HomeController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult CPU()
         {
+
             return View();
         }
 

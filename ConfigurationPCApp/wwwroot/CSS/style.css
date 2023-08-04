@@ -110,6 +110,7 @@ body {
     background: linear-gradient(270deg, #656769 0, #010003 100%);
     /* background-color:rgb(30, 31, 30); */
     border-color: #00C90D;
+    cursor:pointer;
 }
 .menu-r:hover {
     color: #00C90D;

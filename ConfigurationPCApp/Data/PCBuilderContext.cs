@@ -1,28 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PCBuilderApp.Models;
+using PcBuilderApp.Models;
 
-namespace PCBuilderApp.Data
+namespace PcBuilderApp.Data
 {
-    public class PCBuilderContext : DbContext
+    public class PcBuilderContext : DbContext
     {
-        public PCBuilderContext(DbContextOptions<PCBuilderContext> options)
+        public PcBuilderContext(DbContextOptions<PcBuilderContext> options)
             : base(options)
         {
 
         }
 
         public DbSet<Case> Cases { get; set; }
-        public DbSet<CPU> CPUs { get; set; }
-        public DbSet<GPU> GPUs { get; set; }
+        public DbSet<Cpu> Cpus { get; set; }
+        public DbSet<Gpu> Gpus { get; set; }
         public DbSet<Motherboard> Motherboards { get; set; }
-        public DbSet<PSU> PSUs { get; set; }
-        public DbSet<RAM> RAMs { get; set; }
+        public DbSet<Psu> Psus { get; set; }
+        public DbSet<Ram> Rams { get; set; }
         public DbSet<ImageCase> ImageCases { get; set; }
-        public DbSet<ImageCPU> ImageCPUs { get; set; }
-        public DbSet<ImageGPU> ImageGPUs { get; set; }
+        public DbSet<ImageCpu> ImageCpus { get; set; }
+        public DbSet<ImageGpu> ImageGpus { get; set; }
         public DbSet<ImageMotherboard> ImageMotherboards { get; set; }
-        public DbSet<ImagePSU> ImagePSUs { get; set; }
-        public DbSet<ImageRAM> ImageRAMs { get; set; }
+        public DbSet<ImagePsu> ImagePsus { get; set; }
+        public DbSet<ImageRam> ImageRams { get; set; }
 
     }
 }

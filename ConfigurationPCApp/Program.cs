@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
-using PCBuilderApp.Data;
+using System;
+using PcBuilderApp;
+using PcBuilderApp.Data;
+using PcBuilderApp.Services.CatalogService;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<PCBuilderContext>(options =>
+builder.Services.AddDbContext<PcBuilderContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConfigurationPCContext") ?? throw new InvalidOperationException("Connection string 'ConfigurationPCContext' not found.")));
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddScoped<ICatalogService, CatalogeService>();
 
 var app = builder.Build();
 

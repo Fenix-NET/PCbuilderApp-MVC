@@ -1,9 +1,9 @@
-﻿namespace PCBuilderApp.Models
+﻿namespace PcBuilderApp.Models
 {
-    public class ImageRAM
+    public class ImageRam
     {
         public int Id { get; set; }
-        public string RAMModel { get; set; }
+        public string Model { get; set; }
         public string ImageDir { get; set; }
 
     }
