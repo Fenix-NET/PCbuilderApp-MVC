@@ -1,0 +1,28 @@
+﻿@using PcBuilderApp.DTOs.CatalogDto;
+@model List<ProductDto>
+
+@{
+    ViewData["Title"] = "CPU";
+}
+
+
+<div class="content-list">
+    <div class="sort-container">
+        <p>Сортировать по цене:</p>
+        <button class="sort-button">Сначала дорогие</button>
+    </div>
+    @foreach (var item in Model)
+    {
+
+        <div class="product-cart">
+            <img src="/images/Gpu/@item.ImageName" alt="photo cart" class="img-product">
+            <div class="product-info">
+                <a href="" class="product-cart-ref"><p class="product-cart-name">@item.Name</p></a>
+                <p class="price">Цена: <b></b>@item.Price руб.</p>
+            </div>
+            <button class="add-basket">Добавить в корзину</button>
+        </div>
+
+    }
+
+</div>

@@ -11,18 +11,14 @@ namespace PcBuilderApp.Data
 
         }
 
-        public DbSet<Case> Cases { get; set; }
-        public DbSet<Cpu> Cpus { get; set; }
-        public DbSet<Gpu> Gpus { get; set; }
+        public DbSet<Case> Case { get; set; }
+        public DbSet<Cpu> Cpu { get; set; }
+        public DbSet<Gpu> Gpu { get; set; }
         public DbSet<Motherboard> Motherboards { get; set; }
-        public DbSet<Psu> Psus { get; set; }
-        public DbSet<Ram> Rams { get; set; }
-        public DbSet<ImageCase> ImageCases { get; set; }
-        public DbSet<ImageCpu> ImageCpus { get; set; }
-        public DbSet<ImageGpu> ImageGpus { get; set; }
-        public DbSet<ImageMotherboard> ImageMotherboards { get; set; }
-        public DbSet<ImagePsu> ImagePsus { get; set; }
-        public DbSet<ImageRam> ImageRams { get; set; }
+        public DbSet<Psu> Psu { get; set; }
+        public DbSet<Ram> Ram { get; set; }
+        public DbSet<Ssd> Ssd { get; set; }
+        public DbSet<Hdd> Hdd { get; set; }
 
     }
 }

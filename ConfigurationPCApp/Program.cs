@@ -10,7 +10,7 @@ builder.Services.AddDbContext<PcBuilderContext>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
-builder.Services.AddScoped<ICatalogService, CatalogeService>();
+builder.Services.AddScoped<ICatalogService, CatalogService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,5 @@
-﻿@using PcBuilderApp.Models.DTOs;
-@model List<CpuDto>;
+﻿@using PcBuilderApp.DTOs.CatalogDto;
+@model List<ProductDto>
 
 @{
     ViewData["Title"] = "CPU";
@@ -15,9 +15,9 @@
     {
 
         <div class="product-cart">
-            <img src="/images/CPU/@item.ImageDir" alt="photo cart" class="img-product">
+            <img src="/images/Cpu/@item.ImageName" alt="photo cart" class="img-product">
             <div class="product-info">
-                <a href="" class="product-cart-ref"><p class="product-cart-name">@item.Model</p></a>
+                <a href="" class="product-cart-ref"><p class="product-cart-name">@item.Name</p></a>
                 <p class="price">Цена: <b></b>@item.Price руб.</p>
             </div>
             <button class="add-basket">Добавить в корзину</button>
