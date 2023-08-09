@@ -2,19 +2,17 @@
 @model List<ProductDto>
 
 @{
-    ViewData["Title"] = "CPU";
+    ViewData["Title"] = "HDD";
 }
 
 
 <div class="content-list">
     <div class="sort-container">
         <input id="q1" type="radio" name="sort">
-		<label asp-action="MinSort" for="q1">Сначала дешевые</label><br>
-			
+        <label for="q1">Сначала дешевые</label><br>
 
         <input id="q2" type="radio" name="sort">
-		<label asp-action="MaxSort" for="q2">Сначала дорогие</label><br>
-			
+        <label for="q2">Сначала дорогие</label><br>
         @*<p>Сортировать по цене:</p>
         <button class="sort-button">Сначала дешевые</button>/
         <button class="sort-button">Сначала дорогие</button>*@
@@ -23,15 +21,14 @@
     {
 
         <div class="product-cart">
-            <img src="/images/Cpu/@item.ImageName" alt="photo cart" class="img-product">
+            <img src="/images/Hdd/@item.ImageName" alt="photo cart" class="img-product">
             <div class="product-info">
                 <a href="" class="product-cart-ref"><p class="product-cart-name">@item.Name</p></a>
                 <p class="price">Цена: <b></b>@item.Price руб.</p>
             </div>
             <button class="add-basket">Добавить в корзину</button>
         </div>
-  
-    }
-   
-</div>
 
+    }
+
+</div>

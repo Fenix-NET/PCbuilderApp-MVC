@@ -160,6 +160,10 @@ body {
     align-items: start;
 
 }
+.home{
+    width:75%;
+    margin: 0 auto;
+}
 .sort-container {
     height: 35px;
     display: flex;
@@ -314,6 +318,26 @@ body {
     background: #e8e7e7;
 }
 
+#upbtn {
+    display: none; 
+    position: fixed; 
+    bottom: 20px; 
+    right: 30px; 
+    z-index: 99;
+    border: none; 
+    outline: none; 
+    background-color: lightgreen; 
+    color: black; 
+    cursor: pointer; 
+    padding: 15px;
+    border-radius: 25px; 
+    font-size: 18px; 
+    border: 1px solid black;
+}
+
+    #myBtn:hover {
+        background-color: #555; /* Add a dark-grey background on hover */
+    }
 .footer{
     background-color: rgb(18, 19, 18);
     flex: 0 0 auto;

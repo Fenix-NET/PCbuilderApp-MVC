@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PcBuilderApp.Data;
@@ -26,6 +27,18 @@ namespace PcBuilderApp.Controllers
         public async Task<IActionResult> GetCpu([FromServices]ICatalogService _catalogService)
         { 
             return View(await _catalogService.GetAllCpuProducts());         
+        }
+        // GET: Cpu
+		public async Task<IActionResult> MinSort([FromServices] ICatalogService _catalogService)
+        {
+            var list = await _catalogService.GetAllCpuProducts();
+            return View(list.OrderBy(p => p.Price));
+        }
+		// GET: Cpu
+		public async Task<IActionResult> MaxSort([FromServices] ICatalogService _catalogService)
+        {
+            var list = await _catalogService.GetAllCpuProducts();
+            return View(list.OrderByDescending(p => p.Price));
         }
         public async Task<IActionResult> GetGpu([FromServices] ICatalogService _catalogService)
         {

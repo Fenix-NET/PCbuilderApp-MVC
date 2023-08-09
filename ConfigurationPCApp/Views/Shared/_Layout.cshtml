@@ -16,7 +16,7 @@
                 <div class="reg">
                     <a href="https://localhost:7035/" class="a-logo"><img src="/images/logo-4-2.png" alt="logo" class="logo"></a>
                     <div>
-                        <a href="" class="reg-a">Регистрация /</a><a href="" class="reg-a"> Войти</a>
+                        <a asp-controller="Registration" asp-action="CreateNewAccaunt" class="reg-a">Регистрация /</a><a asp-controller="Registration" asp-action="Auth" class="reg-a"> Войти</a>
                     </div>
                 </div>
             </div>
@@ -32,8 +32,8 @@
                             <a href="https://localhost:7035/Catalog/GetGpu" class="a-catalog"><img src="/images/icons/icons8-gpu-64.png" alt="gpu" class="icon-catalog"> Видеокарты</a>
                             <a href="https://localhost:7035/Catalog/GetMotherboard" class="a-catalog"><img src="/images/icons/icons8-motherboard.png" alt="mbr" class="icon-catalog"> Материнские платы</a>
                             <a href="https://localhost:7035/Catalog/GetRam" class="a-catalog"><img src="/images/icons/icons8-ram.png" alt="ram" class="icon-catalog"> Оперативная память</a>
-                            <a href="https://localhost:7035/Catalog/GetHdd" class="a-catalog"><img src="/images/icons/icons8-hdd-50.png" alt="ram" class="icon-catalog"> Оперативная память</a>
-                            <a href="https://localhost:7035/Catalog/GetSsd" class="a-catalog"><img src="/images/icons/icons8-ssd-50.png" alt="ram" class="icon-catalog"> Оперативная память</a>
+                            <a href="https://localhost:7035/Catalog/GetHdd" class="a-catalog"><img src="/images/icons/icons8-hdd-50.png" alt="ram" class="icon-catalog"> Жесткие диски</a>
+                            <a href="https://localhost:7035/Catalog/GetSsd" class="a-catalog"><img src="/images/icons/icons8-ssd-50.png" alt="ram" class="icon-catalog"> SSD</a>
                             <a href="https://localhost:7035/Catalog/GetPsu" class="a-catalog"><img src="/images/icons/icons8-power-supply.png" alt="psu" class="icon-catalog"> Блоки питания</a>
                             <a href="https://localhost:7035/Catalog/GetCase" class="a-catalog"><img src="/images/icons/icons8-case.png" alt="case" class="icon-catalog"> Корпусы</a>
                         </div>
@@ -52,7 +52,7 @@
         <div class="content">
             @RenderBody()
         </div>
-
+        <button onclick="topFunction()" id="upbtn" title="Go to top">Вверх</button>
         <footer class="footer">
             <div class="foot">
                 <!-- <p class="footer-text">Click&#10148;</p> -->
@@ -62,5 +62,20 @@
         </footer>
     </div>
 
+    <script>
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("upbtn").style.display = "block";
+            } else {
+                document.getElementById("upbtn").style.display = "none";
+            }
+        }
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 </body>
 </html>
