@@ -14,9 +14,10 @@
         <header class="header">
             <div class="top-header">
                 <div class="reg">
-                    <a href="https://localhost:7035/" class="a-logo"><img src="/images/logo-4-2.png" alt="logo" class="logo"></a>
+                    <a asp-controller="Home" asp-action="Index" class="a-logo"><img src="/images/logo-4-2.png" alt="logo" class="logo"></a>
                     <div>
-                        <a asp-controller="Registration" asp-action="CreateNewAccaunt" class="reg-a">Регистрация /</a><a asp-controller="Registration" asp-action="Auth" class="reg-a"> Войти</a>
+                        <a asp-controller="Registration" asp-action="CreateNewAccaunt" class="reg-a">Регистрация /</a>
+                        <a asp-controller="Registration" asp-action="Auth" class="reg-a"> Войти</a>
                     </div>
                 </div>
             </div>
@@ -28,14 +29,14 @@
                             <i class="fa fa-caret-down"></i>
                         </div>
                         <div class="dropdown-catalog">
-                            <a href="https://localhost:7035/Catalog/GetCpu" class="a-catalog"><img src="/images/icons/icons8-cpu.png" alt="cpu" class="icon-catalog"> Процессоры</a>
-                            <a href="https://localhost:7035/Catalog/GetGpu" class="a-catalog"><img src="/images/icons/icons8-gpu-64.png" alt="gpu" class="icon-catalog"> Видеокарты</a>
-                            <a href="https://localhost:7035/Catalog/GetMotherboard" class="a-catalog"><img src="/images/icons/icons8-motherboard.png" alt="mbr" class="icon-catalog"> Материнские платы</a>
-                            <a href="https://localhost:7035/Catalog/GetRam" class="a-catalog"><img src="/images/icons/icons8-ram.png" alt="ram" class="icon-catalog"> Оперативная память</a>
-                            <a href="https://localhost:7035/Catalog/GetHdd" class="a-catalog"><img src="/images/icons/icons8-hdd-50.png" alt="ram" class="icon-catalog"> Жесткие диски</a>
-                            <a href="https://localhost:7035/Catalog/GetSsd" class="a-catalog"><img src="/images/icons/icons8-ssd-50.png" alt="ram" class="icon-catalog"> SSD</a>
-                            <a href="https://localhost:7035/Catalog/GetPsu" class="a-catalog"><img src="/images/icons/icons8-power-supply.png" alt="psu" class="icon-catalog"> Блоки питания</a>
-                            <a href="https://localhost:7035/Catalog/GetCase" class="a-catalog"><img src="/images/icons/icons8-case.png" alt="case" class="icon-catalog"> Корпусы</a>
+                            <a asp-controller="Catalog" asp-action="GetAllCpu" class="a-catalog"><img src="/images/icons/icons8-cpu.png" alt="cpu" class="icon-catalog"> Процессоры</a>
+                            <a asp-controller="Catalog" asp-action="GetAllGpu" class="a-catalog"><img src="/images/icons/icons8-gpu-64.png" alt="gpu" class="icon-catalog"> Видеокарты</a>
+                            <a asp-controller="Catalog" asp-action="GetAllMotherboard" class="a-catalog"><img src="/images/icons/icons8-motherboard.png" alt="mbr" class="icon-catalog"> Материнские платы</a>
+                            <a asp-controller="Catalog" asp-action="GetAllRam" class="a-catalog"><img src="/images/icons/icons8-ram.png" alt="ram" class="icon-catalog"> Оперативная память</a>
+                            <a asp-controller="Catalog" asp-action="GetAllHdd" class="a-catalog"><img src="/images/icons/icons8-hdd-50.png" alt="ram" class="icon-catalog"> Жесткие диски</a>
+                            <a asp-controller="Catalog" asp-action="GetAllSsd" class="a-catalog"><img src="/images/icons/icons8-ssd-50.png" alt="ram" class="icon-catalog"> SSD</a>
+                            <a asp-controller="Catalog" asp-action="GetAllPsu" class="a-catalog"><img src="/images/icons/icons8-power-supply.png" alt="psu" class="icon-catalog"> Блоки питания</a>
+                            <a asp-controller="Catalog" asp-action="GetAllCase" class="a-catalog"><img src="/images/icons/icons8-case.png" alt="case" class="icon-catalog"> Корпусы</a>
                         </div>
                     </div>
                     <a href="" class="menu menu-l menu-bord1">КОНСТРУКТОР ПК</a>

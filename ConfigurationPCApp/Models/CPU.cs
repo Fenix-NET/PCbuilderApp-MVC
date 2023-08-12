@@ -1,4 +1,5 @@
 ﻿using Npgsql.Internal.TypeHandlers;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PcBuilderApp.Models

@@ -1,4 +1,4 @@
-html,
+﻿html,
 body {
     margin: 0;
     padding: 0;
@@ -152,13 +152,13 @@ body {
 
 }
 
-.content{
+.content {
     flex: 1 0 auto;
     background-color: whitesmoke;
     display: flex;
     justify-content: center;
     align-items: start;
-
+    flex-direction: column;
 }
 .home{
     width:75%;
@@ -362,3 +362,164 @@ body {
     align-items: center;
     flex-direction: column;
 }
+/*=============================================*/
+.product-page {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    margin: 25px auto;
+    /* padding: 25px; */
+    background-color: whitesmoke;
+    border-radius: 15px;
+    box-shadow: 0 0 26px -4px rgba(0, 0, 0, 0.5);
+}
+
+.main-product-page {
+    display: flex;
+}
+
+.main-photo {
+    box-sizing: border-box;
+    padding: 0 25px;
+    max-width: 50%;
+}
+
+.r-product {
+    width: 50%;
+    background-color: #010003;
+    color: white;
+    padding-left: 25px;
+}
+
+    .r-product > p {
+        font-size: 1.5rem;
+    }
+
+.main-product-info {
+    /* padding-left: 25px; */
+    /* padding-right: 25px ; */
+    margin-top: 30px;
+    font-size: 1.3rem;
+    /* border-radius: 10px; */
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    box-shadow: 0 0 15px 2px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    align-self: center;
+}
+
+.main-product-info > h2 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.main-btn-buy {
+    background-color: #00C90D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 22px;
+    margin: 4px 2px;
+    transition: 0.3s;
+    border-radius: 12px;
+    /* border: 1px Solid black; */
+}
+
+.dop-info {
+    align-self: center;
+    width: 75%;
+    align-content: center;
+}
+
+.dop-info > p {
+    text-align: center;
+}
+
+.box-price {
+    display: inline-flex;
+    /* align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-self: */
+}
+
+.main-btn-buy:hover {
+    background-color: #05e213;
+    color: white;
+    /* box-shadow: 0 0 10px 2px #00C90D; */
+    cursor: pointer;
+   /* .r-product{
+        background: -ms-linear-gradient(0deg, #020014, #020014 5px, #00FF1A 6px, #FF0000 6px, #0800FF 6px);*/
+     /*} */                    
+}
+
+/*========================= рейтинг звезды ====================================*/
+.rating-area {
+    overflow: hidden;
+    width: 210px;
+    /* margin: 0 auto; */
+}
+
+.rating-area:not(:checked) > input {
+    display: none;
+}
+
+.rating-area:not(:checked) > label {
+    float: right;
+    width: 42px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 32px;
+    line-height: 32px;
+    color: lightgrey;
+    text-shadow: 1px 1px #bbb;
+}
+
+.rating-area:not(:checked) > label:before {
+    content: '★';
+}
+
+.rating-area > input:checked ~ label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+}
+
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+     color: gold;
+}
+
+.rating-area > input:checked + label:hover,
+.rating-area > input:checked + label:hover ~ label,
+.rating-area > input:checked ~ label:hover,
+.rating-area > input:checked ~ label:hover ~ label,
+.rating-area > label:hover ~ input:checked ~ label {
+     color: gold;
+     text-shadow: 1px 1px goldenrod;
+}
+
+.rate-area > label:active {
+    position: relative;
+}
+/*===========================================================*/
+/*================================ ТАБЛИЦа =======================================*/
+table {
+    /* border-collapse: collapse; */
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    /* border: 1px solid #ddd; */
+    box-shadow: 0 0 15px 2px rgba(0,0,0,0.2);
+    margin-bottom: 25px;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+/*==================================================================================*/

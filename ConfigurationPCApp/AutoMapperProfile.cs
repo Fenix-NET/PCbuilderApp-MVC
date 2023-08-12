@@ -8,7 +8,7 @@ namespace PcBuilderApp
     {
         public AutoMapperProfile() 
         {
-            CreateMap<Cpu,ProductDto>();
+            CreateMap<Cpu, ProductDto>();
             CreateMap<Gpu, ProductDto>();
             CreateMap<Motherboard, ProductDto>();
             CreateMap<Ram, ProductDto>();
@@ -16,6 +16,14 @@ namespace PcBuilderApp
             CreateMap<Ssd, ProductDto>();
             CreateMap<Psu, ProductDto>();
             CreateMap<Case, ProductDto>();
+            CreateMap<Cpu, CpuDto>();
+            CreateMap<Gpu, GpuDto>();
+            CreateMap<Motherboard, MotherboardDto>();
+            CreateMap<Ram, RamDto>();
+            CreateMap<Hdd, HddDto>();
+            CreateMap<Ssd, SsdDto>();
+            CreateMap<Psu, PsuDto>();
+            CreateMap<Case, CaseDto>();
         }
 
     }

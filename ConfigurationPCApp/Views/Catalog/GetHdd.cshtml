@@ -1,34 +1,49 @@
 ﻿@using PcBuilderApp.DTOs.CatalogDto;
-@model List<ProductDto>
+@model HddDto
 
 @{
-    ViewData["Title"] = "HDD";
+    ViewData["Title"] = "Hdd";
 }
 
-
-<div class="content-list">
-    <div class="sort-container">
-        <input id="q1" type="radio" name="sort">
-        <label for="q1">Сначала дешевые</label><br>
-
-        <input id="q2" type="radio" name="sort">
-        <label for="q2">Сначала дорогие</label><br>
-        @*<p>Сортировать по цене:</p>
-        <button class="sort-button">Сначала дешевые</button>/
-        <button class="sort-button">Сначала дорогие</button>*@
-    </div>
-    @foreach (var item in Model)
-    {
-
-        <div class="product-cart">
-            <img src="/images/Hdd/@item.ImageName" alt="photo cart" class="img-product">
-            <div class="product-info">
-                <a href="" class="product-cart-ref"><p class="product-cart-name">@item.Name</p></a>
-                <p class="price">Цена: <b></b>@item.Price руб.</p>
-            </div>
-            <button class="add-basket">Добавить в корзину</button>
+<div class="main-product-info">
+    <img class="main-photo" src="/images/Hdd/@Model.ImageName" alt="main-photo">
+    <div class="r-product">
+        <h2>@Model.Name</h2>
+        <div class="rating-area">
+            <input type="radio" id="star-5" name="rating" value="5">
+            <label for="star-5" title="Оценка «5»"></label>
+            <input type="radio" id="star-4" name="rating" value="4">
+            <label for="star-4" title="Оценка «4»"></label>
+            <input type="radio" id="star-3" name="rating" value="3">
+            <label for="star-3" title="Оценка «3»"></label>
+            <input type="radio" id="star-2" name="rating" value="2">
+            <label for="star-2" title="Оценка «2»"></label>
+            <input type="radio" id="star-1" name="rating" value="1">
+            <label for="star-1" title="Оценка «1»"></label>
         </div>
+        <p><b>Цена: @Model.Price руб.</b></p>
+        <button class="main-btn-buy"><b>Купить</b></button>
+    </div>
+</div>
+<div class="dop-info">
+    <p>Подробная информация</p>
+    <table>
+        <tr>
+            <th>Производитель</th>
+            <th>@Model.Manufacturer</th>
+        </tr>
+        <tr>
+            <td>Название модели</td>
+            <td>@Model.Model</td>
+        </tr>
+        <tr>
+            <td>Размер памяти</td>
+            <td>@Model.MemorySize</td>
+        </tr>
+        <tr>
+            <td>Скорость вращения шпинделя</td>
+            <td>@Model.SpindleSpeed</td>
 
-    }
-
+        </tr>
+    </table>
 </div>

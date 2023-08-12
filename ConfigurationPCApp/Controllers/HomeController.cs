@@ -7,12 +7,13 @@ namespace PcBuilderApp.Controllers
     public class HomeController : Controller
     {
 
-        private readonly PcBuilderContext _context;
-        // GET: HomeController
+        //private readonly PcBuilderContext _context;
+        
         public HomeController() 
         {
 
         }
+        // GET: HomeController
         public ActionResult Index()
         {
             return View();
