@@ -157,7 +157,7 @@ body {
     background-color: whitesmoke;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     flex-direction: column;
 }
 .home{
@@ -170,6 +170,7 @@ body {
     justify-content: center;
     margin-top: 20px;
     align-items: center;
+    width:50%;
 }
 .sort-button {
     max-height: 25px;
@@ -196,6 +197,7 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
     width: 80%;
+    box-shadow: 0 0 26px -4px rgba(0, 0, 0, 0.5);
 }
 .product-info {
     width: 100%;
@@ -330,7 +332,7 @@ body {
     color: black; 
     cursor: pointer; 
     padding: 15px;
-    border-radius: 25px; 
+    border-radius: 50%; 
     font-size: 18px; 
     border: 1px solid black;
 }
@@ -344,6 +346,7 @@ body {
     height: 150px;
     border-top: 1px;
     border-color: white;
+
 }
 .footer-text {
     color: white;
@@ -453,6 +456,16 @@ body {
         background: -ms-linear-gradient(0deg, #020014, #020014 5px, #00FF1A 6px, #FF0000 6px, #0800FF 6px);*/
      /*} */                    
 }
+.number-product {
+    display: flex;
+    margin-left: 10%;
+    align-items: center;
+}
+.number-product a {
+    text-decoration:none;
+    color:black;
+    font-size: 1.2rem;
+}
 
 /*========================= рейтинг звезды ====================================*/
 .rating-area {
@@ -523,3 +536,27 @@ tr:nth-child(even) {
     background-color: #f2f2f2
 }
 /*==================================================================================*/
+/*=====================ПАГИНАЦИЯ==========================*/
+.pagination {
+    margin-bottom:25px;
+}
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border-radius:5px;
+}
+
+
+.pagination a.active {
+    background-color: #00C90D;
+    color: white;
+}
+
+
+.pagination a:hover:not(.active) {
+     background-color: #ddd;
+}
+/*============================================================*/

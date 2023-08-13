@@ -9,16 +9,19 @@ using Microsoft.EntityFrameworkCore;
 using PcBuilderApp.Data;
 using PcBuilderApp.Models;
 using PcBuilderApp.Services.CatalogService;
+using PcBuilderApp.Services.SortingService;
 
 namespace PcBuilderApp.Controllers
 {
     public class CatalogController : Controller
     {
         private readonly ICatalogService _catalogService;
+        private readonly ISortingService _sortingService;
 
-        public CatalogController(ICatalogService catalogService)
+        public CatalogController(ICatalogService catalogService, ISortingService sortingService)
         {
             _catalogService = catalogService;
+            _sortingService = sortingService;
         }
 
         // GET: Cpu
@@ -170,10 +173,14 @@ namespace PcBuilderApp.Controllers
 
             return View(dto);
         }
-        public async Task<IActionResult> GetAllCase()
+        public async Task<IActionResult> GetAllCase(int? PageSize, int PageNum=1)
         {
+            if(PageSize == null)
+            {
+                return View(await _catalogService.GetAllCaseProducts());
+            }
 
-            return View(await _catalogService.GetAllCaseProducts());
+             return View(await _sortingService.Pagination(PageSize, PageNum));
 
         }
         public async Task<IActionResult> GetCase(int id)

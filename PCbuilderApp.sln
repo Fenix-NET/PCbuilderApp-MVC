@@ -5,6 +5,94 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PcBuilderApp", "ConfigurationPCApp\PcBuilderApp.csproj", "{C55CCA18-AC18-455D-B0BC-DD9AC2311CB5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backup", "Backup", "{C99447D4-DF70-4106-A9D8-A4238211F06F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers", "{FA34ED4E-FA6D-4527-BD1D-1F38786128E7}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\Controllers\CatalogController.cs = ConfigurationPCApp\Controllers\CatalogController.cs
+		ConfigurationPCApp\Controllers\HomeController.cs = ConfigurationPCApp\Controllers\HomeController.cs
+		ConfigurationPCApp\Controllers\RegistrationController.cs = ConfigurationPCApp\Controllers\RegistrationController.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{DFB541BE-7B58-4C98-A1C0-27EA567F9FCA}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\Data\PcBuilderContext.cs = ConfigurationPCApp\Data\PcBuilderContext.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DTOs", "DTOs", "{509D91C3-6853-47CA-92A8-7629A2F29D99}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\DTOs\CatalogRequest.cs = ConfigurationPCApp\DTOs\CatalogRequest.cs
+		ConfigurationPCApp\DTOs\CatalogResponse.cs = ConfigurationPCApp\DTOs\CatalogResponse.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{FBF6672E-3C96-4755-851A-A41AA6B17297}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\Models\Case.cs = ConfigurationPCApp\Models\Case.cs
+		ConfigurationPCApp\Models\Cpu.cs = ConfigurationPCApp\Models\Cpu.cs
+		ConfigurationPCApp\Models\Gpu.cs = ConfigurationPCApp\Models\Gpu.cs
+		ConfigurationPCApp\Models\Hdd.cs = ConfigurationPCApp\Models\Hdd.cs
+		ConfigurationPCApp\Models\Motherboard.cs = ConfigurationPCApp\Models\Motherboard.cs
+		ConfigurationPCApp\Models\Psu.cs = ConfigurationPCApp\Models\Psu.cs
+		ConfigurationPCApp\Models\Ram.cs = ConfigurationPCApp\Models\Ram.cs
+		ConfigurationPCApp\Models\Ssd.cs = ConfigurationPCApp\Models\Ssd.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CD339571-85B1-492B-9310-8C11E2FA3ECF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{98ECE269-B6BE-475B-AA83-AFD37967805F}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\Views\_ViewImports.cshtml = ConfigurationPCApp\Views\_ViewImports.cshtml
+		ConfigurationPCApp\Views\_ViewStart.cshtml = ConfigurationPCApp\Views\_ViewStart.cshtml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogDto", "CatalogDto", "{1EF0C029-B77C-4E0A-ACD6-E9FA5B22BE62}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\DTOs\CatalogDto\CaseDto.cs = ConfigurationPCApp\DTOs\CatalogDto\CaseDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\CpuDto.cs = ConfigurationPCApp\DTOs\CatalogDto\CpuDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\GpuDto.cs = ConfigurationPCApp\DTOs\CatalogDto\GpuDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\HddDto.cs = ConfigurationPCApp\DTOs\CatalogDto\HddDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\MotherboardDto.cs = ConfigurationPCApp\DTOs\CatalogDto\MotherboardDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\ProductDto.cs = ConfigurationPCApp\DTOs\CatalogDto\ProductDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\PsuDto.cs = ConfigurationPCApp\DTOs\CatalogDto\PsuDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\RamDto.cs = ConfigurationPCApp\DTOs\CatalogDto\RamDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\SortDto.cs = ConfigurationPCApp\DTOs\CatalogDto\SortDto.cs
+		ConfigurationPCApp\DTOs\CatalogDto\SsdDto.cs = ConfigurationPCApp\DTOs\CatalogDto\SsdDto.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogService", "CatalogService", "{83320AA9-0295-42D3-A6B0-C79F0677EA11}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\Services\CatalogService\CatalogService.cs = ConfigurationPCApp\Services\CatalogService\CatalogService.cs
+		ConfigurationPCApp\Services\CatalogService\ICatalogService.cs = ConfigurationPCApp\Services\CatalogService\ICatalogService.cs
+		ConfigurationPCApp\Services\CatalogService\IProductCartService.cs = ConfigurationPCApp\Services\CatalogService\IProductCartService.cs
+		ConfigurationPCApp\Services\CatalogService\ProductCartService.cs = ConfigurationPCApp\Services\CatalogService\ProductCartService.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SortingService", "SortingService", "{CBF17A33-0DFA-475A-9B74-D14C9AC76901}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\Services\SortingService\ISortingService.cs = ConfigurationPCApp\Services\SortingService\ISortingService.cs
+		ConfigurationPCApp\Services\SortingService\SortingService.cs = ConfigurationPCApp\Services\SortingService\SortingService.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{916DA815-205F-420D-804D-830CAC60E431}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationPCApp\Views\Catalog\GetAllCase.cshtml = ConfigurationPCApp\Views\Catalog\GetAllCase.cshtml
+		ConfigurationPCApp\Views\Catalog\GetAllCpu.cshtml = ConfigurationPCApp\Views\Catalog\GetAllCpu.cshtml
+		ConfigurationPCApp\Views\Catalog\GetAllGpu.cshtml = ConfigurationPCApp\Views\Catalog\GetAllGpu.cshtml
+		ConfigurationPCApp\Views\Catalog\GetAllHdd.cshtml = ConfigurationPCApp\Views\Catalog\GetAllHdd.cshtml
+		ConfigurationPCApp\Views\Catalog\GetAllMotherboard.cshtml = ConfigurationPCApp\Views\Catalog\GetAllMotherboard.cshtml
+		ConfigurationPCApp\Views\Catalog\GetAllPsu.cshtml = ConfigurationPCApp\Views\Catalog\GetAllPsu.cshtml
+		ConfigurationPCApp\Views\Catalog\GetAllRam.cshtml = ConfigurationPCApp\Views\Catalog\GetAllRam.cshtml
+		ConfigurationPCApp\Views\Catalog\GetAllSsd.cshtml = ConfigurationPCApp\Views\Catalog\GetAllSsd.cshtml
+		ConfigurationPCApp\Views\Catalog\GetCase.cshtml = ConfigurationPCApp\Views\Catalog\GetCase.cshtml
+		ConfigurationPCApp\Views\Catalog\GetCpu.cshtml = ConfigurationPCApp\Views\Catalog\GetCpu.cshtml
+		ConfigurationPCApp\Views\Catalog\GetGpu.cshtml = ConfigurationPCApp\Views\Catalog\GetGpu.cshtml
+		ConfigurationPCApp\Views\Catalog\GetHdd.cshtml = ConfigurationPCApp\Views\Catalog\GetHdd.cshtml
+		ConfigurationPCApp\Views\Catalog\GetMotherboard.cshtml = ConfigurationPCApp\Views\Catalog\GetMotherboard.cshtml
+		ConfigurationPCApp\Views\Catalog\GetPsu.cshtml = ConfigurationPCApp\Views\Catalog\GetPsu.cshtml
+		ConfigurationPCApp\Views\Catalog\GetRam.cshtml = ConfigurationPCApp\Views\Catalog\GetRam.cshtml
+		ConfigurationPCApp\Views\Catalog\GetSsd.cshtml = ConfigurationPCApp\Views\Catalog\GetSsd.cshtml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +106,18 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FA34ED4E-FA6D-4527-BD1D-1F38786128E7} = {C99447D4-DF70-4106-A9D8-A4238211F06F}
+		{DFB541BE-7B58-4C98-A1C0-27EA567F9FCA} = {C99447D4-DF70-4106-A9D8-A4238211F06F}
+		{509D91C3-6853-47CA-92A8-7629A2F29D99} = {C99447D4-DF70-4106-A9D8-A4238211F06F}
+		{FBF6672E-3C96-4755-851A-A41AA6B17297} = {C99447D4-DF70-4106-A9D8-A4238211F06F}
+		{CD339571-85B1-492B-9310-8C11E2FA3ECF} = {C99447D4-DF70-4106-A9D8-A4238211F06F}
+		{98ECE269-B6BE-475B-AA83-AFD37967805F} = {C99447D4-DF70-4106-A9D8-A4238211F06F}
+		{1EF0C029-B77C-4E0A-ACD6-E9FA5B22BE62} = {509D91C3-6853-47CA-92A8-7629A2F29D99}
+		{83320AA9-0295-42D3-A6B0-C79F0677EA11} = {CD339571-85B1-492B-9310-8C11E2FA3ECF}
+		{CBF17A33-0DFA-475A-9B74-D14C9AC76901} = {CD339571-85B1-492B-9310-8C11E2FA3ECF}
+		{916DA815-205F-420D-804D-830CAC60E431} = {98ECE269-B6BE-475B-AA83-AFD37967805F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8D78CC8-C009-457E-9AEB-6190EAB6B9C0}

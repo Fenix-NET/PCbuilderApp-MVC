@@ -1,5 +1,7 @@
-﻿@using PcBuilderApp.DTOs.CatalogDto;
-@model List<ProductDto>
+﻿@using PcBuilderApp.DTOs;
+@using PcBuilderApp.DTOs.CatalogDto;
+@model CatalogResponse<List<ProductDto>>
+@*@model List<ProductDto>*@
 
 @{
     ViewData["Title"] = "Case";
@@ -10,15 +12,22 @@
     <div class="sort-container">
 
         <input id="q1" type="radio" name="sort">
-        <label for="q1">Сначала дешевые</label><br>
+        <label for="q1">Сначала дешевые</label>&nbsp;
 
         <input id="q2" type="radio" name="sort">
         <label for="q2">Сначала дорогие</label><br>
         @*<p>Сортировать по цене:</p>
         <button class="sort-button">Сначала дешевые</button>/
         <button class="sort-button">Сначала дорогие</button>*@
+		<div class="number-product">
+            <p>Отображать по:</p>&nbsp;
+			<a asp-controller="Catalog" asp-action="GetAllCase" asp-route-PageSize="20">20</a>&nbsp;
+            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-PageSize="50">50 </a>&nbsp;
+            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-PageSize="100">100 </a>&nbsp;
+		</div>
+        
     </div>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Data)
     {
 
         <div class="product-cart">
@@ -31,5 +40,14 @@
         </div>
 
     }
+    <div class="pagination">
+		<a href="#">&laquo;</a>
+        @for(int i = 0; i<Model.NumberOfPages; i++)
+        {
+            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-PageSize="@Model.CurrentPageSize" asp-route-PageNum="@(i+1)">@(i+1)</a>
+        }
+        
+        <a href="#">&raquo;</a>
+    </div>
 
 </div>

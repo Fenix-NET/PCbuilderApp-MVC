@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PcBuilderApp.Data;
+using PcBuilderApp.DTOs;
 using PcBuilderApp.DTOs.CatalogDto;
 
 namespace PcBuilderApp.Services.CatalogService
@@ -44,9 +45,13 @@ namespace PcBuilderApp.Services.CatalogService
         {
             return await _context.Psu.Select(dto => _mapper.Map<ProductDto>(dto)).ToListAsync();
         }
-        public async Task<List<ProductDto>> GetAllCaseProducts()
+        public async Task<CatalogResponse<List<ProductDto>>> GetAllCaseProducts()
         {
-            return await _context.Case.Select(dto => _mapper.Map<ProductDto>(dto)).ToListAsync();
+            CatalogResponse<List<ProductDto>> catalogResponse = new()
+            {
+                Data = await _context.Case.Select(dto => _mapper.Map<ProductDto>(dto)).ToListAsync()
+            };
+            return catalogResponse;
         }
 
         public async Task<CpuDto> GetProductCartCpu(int id)

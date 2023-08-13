@@ -3,6 +3,7 @@ using System;
 using PcBuilderApp;
 using PcBuilderApp.Data;
 using PcBuilderApp.Services.CatalogService;
+using PcBuilderApp.Services.SortingService;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PcBuilderContext>(options =>
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<PcBuilderContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<ICatalogService, CatalogService>();
+builder.Services.AddScoped<ISortingService, SortingService>();
 
 var app = builder.Build();
 
