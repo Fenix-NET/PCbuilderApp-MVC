@@ -7,7 +7,7 @@ namespace PcBuilderApp.Services.SortingService
     public interface ISortingService
     {
 
-        Task<CatalogResponse<List<ProductDto>>> Pagination(int? size, int num); 
+        Task<CatalogResponse<List<ProductDto>>> Pagination(CatalogRequest catalogRequest, string sort); 
         //Task<IActionResult> SortBy(string sortBy);
 
     }

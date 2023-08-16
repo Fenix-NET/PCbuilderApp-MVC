@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PcBuilderApp.Data;
+using PcBuilderApp.DTOs;
 using PcBuilderApp.Models;
 using PcBuilderApp.Services.CatalogService;
 using PcBuilderApp.Services.SortingService;
@@ -173,14 +174,24 @@ namespace PcBuilderApp.Controllers
 
             return View(dto);
         }
-        public async Task<IActionResult> GetAllCase(int? PageSize, int PageNum=1)
+        //public async Task<IActionResult> GetAllCase(int? PageSize, int PageNum=1)
+        //{
+        //    if(PageSize == null)
+        //    {
+        //        return View(await _catalogService.GetAllCaseProducts());
+        //    }
+
+        //     return View(await _sortingService.Pagination(PageSize, PageNum));
+
+        //}
+        public async Task<IActionResult> GetAllCase(CatalogRequest catalogRequest, string sort = "Default")
         {
-            if(PageSize == null)
+            if (catalogRequest.PageSize == null)
             {
                 return View(await _catalogService.GetAllCaseProducts());
             }
 
-             return View(await _sortingService.Pagination(PageSize, PageNum));
+            return View(await _sortingService.Pagination(catalogRequest, sort));
 
         }
         public async Task<IActionResult> GetCase(int id)

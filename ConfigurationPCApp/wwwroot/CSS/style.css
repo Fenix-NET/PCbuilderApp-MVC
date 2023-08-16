@@ -8,13 +8,14 @@ body {
 .wrapper {
     display: flex;
 	flex-direction: column;
-	min-height: 100%
+	min-height: 100%;
+    background-color:whitesmoke;
 }
 .header{
     display: flex;
     flex-direction: column;
     background-color: rgb(18, 19, 18);
-    height: 170px;
+    height: 150px;
 }
 .top-header{
     background-color: antiquewhite;
@@ -34,7 +35,7 @@ body {
     justify-content: start;
 }
 .logo {
-    max-width: 490px;
+    max-width: 450px;
     max-height: 86px;
 }
 .a-logo {
@@ -560,3 +561,426 @@ tr:nth-child(even) {
      background-color: #ddd;
 }
 /*============================================================*/
+
+/*=============================КОНСТРУКТОР ПК===============================*/
+.all-list {
+    list-style-type: none;
+    width: 75%;
+}
+
+.container-list {
+    width: 75%;
+}
+
+.concrete-list {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 25px;
+    padding: 5px 15px 5px 15px;
+}
+
+.container-list-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name-list-info {
+    font-size: 1.2rem;
+}
+
+.btn-constructor-add {
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    color: green;
+}
+
+    .btn-constructor-add:hover {
+        background: #eee;
+    }
+
+
+.dropbtn-min { /*Кнопка выпадающего меню < 550px */
+    display: none;
+}
+
+.dropdown-min {
+    display: none;
+}
+
+.text-reg-min {
+    display: none;
+}
+
+/*===========================ПОИСК=======================*/
+.search-box {
+    /* position: absolute; */
+    /* top: 50%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    background: white;
+    height: 70%;
+    border-radius: 40px;
+    padding: 4px;
+}
+/* .search-box:hover > .search-txt {
+    width: 240px;
+    padding: 0 6px;
+    }
+    .search-box:hover > .search-btn {
+    background: white;
+    color: black;
+    } */
+.search-btn {
+    color: #eeeeee;
+    float: right;
+    width: 40px;
+    height: 100%;
+    border-radius: 50%;
+    background: #00C90D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .search-btn > i {
+        font-size: 20px;
+    }
+
+.search-txt {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0 6px;
+    /* padding: 0; */
+    color: black;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 240px;
+    /* width: 0px; */
+    font-weight: bold;
+}
+
+.search-box-min {
+    display: none;
+}
+
+.search-container-mini {
+    align-self: flex-end;
+    display: none;
+    margin-top: 5px;
+}
+
+
+/*==========================MEDIA======================*/
+@media screen and (max-width: 1140px) {
+    .search-box {
+        display: none;
+        /* position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #666666;
+        height: 40px;
+        border-radius: 40px;
+        padding: 4px; */
+        /* }
+        .search-box:hover > .search-txt {
+        width: 240px;
+        padding: 0 6px;
+        }
+        .search-box:hover > .search-btn {
+        background: white;
+        color: black;
+        }
+        .search-btn {
+        color: #eeeeee;
+        float: right;
+        width: 40px;
+        height: 100%;
+        border-radius: 50%;
+        background: #00C90D;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.4s;
+        color: white;
+        cursor: pointer;
+        text-decoration:none;
+        }
+        .search-btn > i {
+        font-size: 20px;
+        }
+        .search-txt {
+        border: none;
+        background: none;
+        outline: none;
+        float: left;
+        padding: 0;
+        color: white;
+        font-size: 16px;
+        transition: 0.4s;
+        line-height: 40px;
+        width: 0px;
+        font-weight: bold;
+        } */
+    }
+
+    .search-container-mini {
+        display: block;
+    }
+}
+/*========================Поиск при маленькой ширине===================*/
+/* .search-box-min {
+        display: block;
+        position: absolute;
+        top: 176px;
+        left: 95%;
+        transform: translate(-50%, 0%); 
+        background: white;
+        height: 40px;
+        border-radius: 40px;
+        padding: 4px;
+        max-width: 75%;
+        margin: 0 auto;
+    }
+    .search-box-min:hover > .search-txt-min {
+        width: 240px;
+        padding: 0 6px;
+        }
+        .search-box-min:hover > .search-btn-min {
+        background: white;
+        color: black;
+        }
+        .search-btn-min {
+            color: #eeeeee;
+            float: right;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #00C90D;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s;
+            color: white;
+            cursor: pointer;
+            text-decoration:none;
+        }
+        .search-btn-min > i {
+        font-size: 20px;
+        }
+        .search-txt-min {
+            border: none;
+            background: none;
+            outline: none;
+            float: left;
+            padding: 0;
+            color: white;
+            font-size: 16px;
+            transition: 0.4s;
+            line-height: 40px;
+            width: 0px;
+            font-weight: bold;
+        }
+} */
+
+@media screen and (max-width: 800px) {
+
+    .text-reg-min {
+        display: none;
+    }
+
+    .dropbtn-min {
+        display: none;
+    }
+
+    .dropdown-min {
+        display: none;
+    }
+
+    .left-menu {
+        margin-left: 10px;
+    }
+
+    .right-menu {
+        margin-right: 0px;
+    }
+
+    .menu > span {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 550px) {
+    .logo {
+        max-width: 250px;
+    }
+
+    .header {
+        height: 120px;
+    }
+
+    .menu-l {
+        display: none;
+    }
+
+    .text-reg-min {
+        display: none;
+    }
+
+    .search-box-min {
+        display: none;
+    }
+
+    /*=====================Выпадающее меню=====================*/
+    /* Кнопка выпадающего списка */
+    .decor-menu-min {
+        width: 35px;
+        height: 5px;
+        background-color: black;
+        margin: 6px 0;
+    }
+
+    .dropbtn-min {
+        display: block;
+        background-color: rgb(18, 19, 18);
+        color: white;
+        /* padding: 16px; */
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .dropbtn-min img {
+            height: 20px;
+            vertical-align: middle;
+            padding-bottom: 3px;
+        }
+        /* Кнопка выпадающего меню при наведении и фокусировке */
+        .dropbtn-min:hover, .dropbtn-min:focus {
+            background-color: #00C90D;
+        }
+
+    /* Контейнер <div> - необходим для размещения выпадающего содержимого */
+    .dropdown-min {
+        position: relative;
+        display: flex;
+        height: 100%;
+    }
+
+    /* Выпадающее содержимое (скрыто по умолчанию) */
+    .dropdown-content-min {
+        white-space: nowrap;
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: -10px;
+        /* background-color: #f1f1f1; */
+        background-color: rgb(18, 19, 18);
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        /* Ссылки внутри выпадающего списка */
+        .dropdown-content-min a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+            /* Изменение цвета выпадающих ссылок при наведении курсора */
+            .dropdown-content-min a:hover {
+                background-color: rgb(40, 40, 40);
+                color: #00C90D;
+            }
+    /* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
+    .show {
+        display: block;
+    }
+
+    /*=============================Выпадающее ПОДменю===========================*/
+    .dropdown-btn-min {
+        padding: 12px 16px;
+        text-decoration: none;
+        font-size: 1rem;
+        color: white;
+        display: block;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+        /* При наведении курсора мыши */
+        .sidenav a:hover, .dropdown-btn-min:hover {
+            color: #f1f1f1;
+        }
+
+    /* Добавить активный класс для кнопки активного выпадающего списка */
+    .active {
+        background-color: green;
+        color: white;
+    }
+
+    /* Выпадающий контейнер (по умолчанию скрыт). Необязательно: добавьте более светлый цвет фона и некоторые левые отступы, чтобы изменить дизайн выпадающего содержимого */
+    .dropdown-container-min {
+        display: none;
+        background-color: #303030;
+        padding-left: 8px;
+    }
+}
+
+@media screen and (max-width: 427px) {
+
+    .text-reg-max {
+        display: none;
+    }
+
+    .text-reg-min {
+        display: block;
+    }
+
+    .min-reg {
+        margin-left: 5%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo {
+        max-width: 200px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header {
+        height: 100px;
+    }
+
+    .logo {
+        max-width: 150px;
+    }
+}
+
+@media screen and (max-width:270px) {
+    .logo {
+        max-width: 100px;
+    }
+}

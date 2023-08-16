@@ -2,6 +2,7 @@
 {
     public enum SortDto
     {
+        Default,
         MinPrice,
         MaxPrice,
 

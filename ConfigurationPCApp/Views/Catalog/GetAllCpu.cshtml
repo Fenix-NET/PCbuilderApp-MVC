@@ -8,13 +8,14 @@
 
 <div class="content-list">
     <div class="sort-container">
-        <input id="q1" type="radio" name="sort">
-		<label asp-action="MinSort" for="q1">Сначала дешевые</label><br>
-			
+        <form class="sort-container">
+			<input id="q1" type="radio" name="sort">
+			<label asp-action="MinSort" for="q1">Сначала дешевые</label><br>
 
-        <input id="q2" type="radio" name="sort">
-		<label asp-action="MaxSort" for="q2">Сначала дорогие</label><br>
-			
+			<input id="q2" type="radio" name="sort">
+			<label asp-action="MaxSort" for="q2">Сначала дорогие</label><br>
+        </form>
+
         @*<p>Сортировать по цене:</p>
         <button class="sort-button">Сначала дешевые</button>/
         <button class="sort-button">Сначала дорогие</button>*@

@@ -18,7 +18,10 @@ namespace PcBuilderApp.Controllers
         {
             return View();
         }
-
+        public ActionResult Constructor()
+        {
+            return View();
+        }
         // GET: HomeController/Details/5
         public ActionResult Cpu()
         {

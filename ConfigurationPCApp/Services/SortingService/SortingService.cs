@@ -5,6 +5,7 @@ using PcBuilderApp.Data;
 using PcBuilderApp.DTOs;
 using PcBuilderApp.DTOs.CatalogDto;
 using PcBuilderApp.Services.SortingService;
+using System.Linq;
 
 namespace PcBuilderApp.Services.SortingService
 {
@@ -24,56 +25,139 @@ namespace PcBuilderApp.Services.SortingService
         //{
 
         //}
-        public async Task<CatalogResponse<List<ProductDto>>> Pagination(int? size, int num)
+        public async Task<CatalogResponse<List<ProductDto>>> Pagination(CatalogRequest catalogRequest, string sort)
         {
             CatalogResponse<List<ProductDto>> catalogResponse = new();
-            if (size == PageSize20)
+            int count = _context.Case.AsNoTracking().Count();
+            if (catalogRequest.PageSize == PageSize20)
             {
-                
-                int count = _context.Case.AsNoTracking().Count();
-                var dto = await _context.Case.AsNoTracking()
-                            .OrderBy(p => p.Id)
-                            .Skip((num - 1) * PageSize20)
+                switch(sort)
+                {
+                    case ("MinPrice"):
+                           var dto = await _context.Case.AsNoTracking()
+                            .OrderBy(p => p.Price)
+                            .Skip((catalogRequest.PageNumber - 1) * PageSize20)
                             .Take(PageSize20)
                             .Select(p => _mapper.Map<ProductDto>(p))
                             .ToListAsync();
-                catalogResponse.CurrentPageSize = size;
-                catalogResponse.Data = dto;
-                catalogResponse.NumberOfPages = count / PageSize20;
-                return catalogResponse;
-            }
-            if (size == PageSize50)
-            {
-                
-                int count = _context.Case.AsNoTracking().Count();
-                var dto = await _context.Case.AsNoTracking()
+                            catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto;
+                        catalogResponse.NumberOfPages = count / PageSize20;
+                        return catalogResponse;
+
+                    case ("MaxPrice"):
+                        var dto2 = await _context.Case.AsNoTracking()
+                            .OrderByDescending(p => p.Price)
+                            .Skip((catalogRequest.PageNumber - 1) * PageSize20)
+                            .Take(PageSize20)
+                            .Select(p => _mapper.Map<ProductDto>(p))
+                            .ToListAsync();
+                        catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto2;
+                        catalogResponse.NumberOfPages = count / PageSize20;
+                        return catalogResponse;
+
+                    case ("Default"):
+                        var dto3 = await _context.Case.AsNoTracking()
                             .OrderBy(p => p.Id)
-                            .Skip((num - 1) * PageSize50)
+                            .Skip((catalogRequest.PageNumber - 1) * PageSize20)
+                            .Take(PageSize20)
+                            .Select(p => _mapper.Map<ProductDto>(p))
+                            .ToListAsync();
+                        catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto3;
+                        catalogResponse.NumberOfPages = count / PageSize20;
+                        return catalogResponse;
+                }
+                
+            }
+            if (catalogRequest.PageSize == PageSize50)
+            {
+                switch (sort)
+                {
+                    case ("MinPrice"):
+                        var dto = await _context.Case.AsNoTracking()
+                         .OrderBy(p => p.Price)
+                         .Skip((catalogRequest.PageNumber - 1) * PageSize50)
+                         .Take(PageSize50)
+                         .Select(p => _mapper.Map<ProductDto>(p))
+                         .ToListAsync();
+                        catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto;
+                        catalogResponse.NumberOfPages = count / PageSize50;
+                        return catalogResponse;
+
+                    case ("MaxPrice"):
+                        var dto2 = await _context.Case.AsNoTracking()
+                            .OrderByDescending(p => p.Price)
+                            .Skip((catalogRequest.PageNumber - 1) * PageSize50)
                             .Take(PageSize50)
                             .Select(p => _mapper.Map<ProductDto>(p))
                             .ToListAsync();
-                catalogResponse.CurrentPageSize = size;
-                catalogResponse.Data = dto;
-                catalogResponse.NumberOfPages = count / PageSize50;
-                return catalogResponse;
-            }
-            if (size == PageSize100)
-            {
-                
-                int count = _context.Case.AsNoTracking().Count();
-                var dto = await _context.Case.AsNoTracking()
+                        catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto2;
+                        catalogResponse.NumberOfPages = count / PageSize50;
+                        return catalogResponse;
+
+                    case ("Default"):
+                        var dto3 = await _context.Case.AsNoTracking()
                             .OrderBy(p => p.Id)
-                            .Skip((num - 1) * PageSize100)
+                            .Skip((catalogRequest.PageNumber - 1) * PageSize50)
+                            .Take(PageSize50)
+                            .Select(p => _mapper.Map<ProductDto>(p))
+                            .ToListAsync();
+                        catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto3;
+                        catalogResponse.NumberOfPages = count / PageSize50;
+                        return catalogResponse;
+                }
+            }
+            if (catalogRequest.PageSize == PageSize100)
+            {
+
+                switch (sort)
+                {
+                    case ("MinPrice"):
+                        var dto = await _context.Case.AsNoTracking()
+                         .OrderBy(p => p.Price)
+                         .Skip((catalogRequest.PageNumber - 1) * PageSize100)
+                         .Take(PageSize100)
+                         .Select(p => _mapper.Map<ProductDto>(p))
+                         .ToListAsync();
+                        catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto;
+                        catalogResponse.NumberOfPages = count / PageSize100;
+                        return catalogResponse;
+
+                    case ("MaxPrice"):
+                        var dto2 = await _context.Case.AsNoTracking()
+                            .OrderByDescending(p => p.Price)
+                            .Skip((catalogRequest.PageNumber - 1) * PageSize100)
                             .Take(PageSize100)
                             .Select(p => _mapper.Map<ProductDto>(p))
                             .ToListAsync();
-                catalogResponse.CurrentPageSize = size;
-                catalogResponse.Data = dto;
-                catalogResponse.NumberOfPages = count / PageSize100;
-                return catalogResponse;
+                        catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto2;
+                        catalogResponse.NumberOfPages = count / PageSize100;
+                        return catalogResponse;
+
+                    case ("Default"):
+                        var dto3 = await _context.Case.AsNoTracking()
+                            .OrderBy(p => p.Id)
+                            .Skip((catalogRequest.PageNumber - 1) * PageSize100)
+                            .Take(PageSize100)
+                            .Select(p => _mapper.Map<ProductDto>(p))
+                            .ToListAsync();
+                        catalogResponse.CurrentPageSize = catalogRequest.PageSize;
+                        catalogResponse.Data = dto3;
+                        catalogResponse.NumberOfPages = count / PageSize100;
+                        return catalogResponse;
+                }
             }
-            catalogResponse.Success = false;
-            return catalogResponse;
+            
+                catalogResponse.Success = false;
+                return catalogResponse;
+            
         }
 
 

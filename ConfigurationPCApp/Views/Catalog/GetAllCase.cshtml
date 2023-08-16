@@ -5,25 +5,31 @@
 
 @{
     ViewData["Title"] = "Case";
+    //CatalogRequest catalogRequest = new();
 }
 
 
 <div class="content-list">
     <div class="sort-container">
+		<form>
+			<input asp-controller="Catalog" asp-action="GetAllCase" asp-route-sort="MinPrice" id="q1" type="radio" name="sort">
+            <label asp-action="MinSort" for="q1">Сначала дешевые</label><br>
+			@*<a asp-controller="Catalog" asp-action="GetAllCase" asp-route-catalogRequest="@Model" asp-route-sort="MinPrice">Сначала дешевые</a>&nbsp;*@
 
-        <input id="q1" type="radio" name="sort">
-        <label for="q1">Сначала дешевые</label>&nbsp;
+			<input asp-controller="Catalog" asp-action="GetAllCase" asp-route-sort="MaxPrice" id="q2" type="radio" name="sort">
+            <label asp-action="MaxSort" for="q2">Сначала дорогие</label><br>
+			@*<a asp-controller="Catalog" asp-action="GetAllCase" asp-route-catalogRequest="@Model" asp-route-sort="MaxPrice">Сначала дорогие</a><br>*@
+        </form>
+        
 
-        <input id="q2" type="radio" name="sort">
-        <label for="q2">Сначала дорогие</label><br>
         @*<p>Сортировать по цене:</p>
         <button class="sort-button">Сначала дешевые</button>/
         <button class="sort-button">Сначала дорогие</button>*@
 		<div class="number-product">
             <p>Отображать по:</p>&nbsp;
-			<a asp-controller="Catalog" asp-action="GetAllCase" asp-route-PageSize="20">20</a>&nbsp;
-            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-PageSize="50">50 </a>&nbsp;
-            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-PageSize="100">100 </a>&nbsp;
+            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-catalogRequest.PageSize="20">20</a>&nbsp;
+            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-catalogRequest.PageSize="50">50 </a>&nbsp;
+            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-catalogRequest.PageSize="100">100 </a>&nbsp;
 		</div>
         
     </div>
@@ -44,7 +50,7 @@
 		<a href="#">&laquo;</a>
         @for(int i = 0; i<Model.NumberOfPages; i++)
         {
-            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-PageSize="@Model.CurrentPageSize" asp-route-PageNum="@(i+1)">@(i+1)</a>
+            <a asp-controller="Catalog" asp-action="GetAllCase" asp-route-catalogRequest.PageSize="@Model.CurrentPageSize" asp-route-catalogRequest.PageNumber="@(i+1)">@(i + 1)</a>
         }
         
         <a href="#">&raquo;</a>

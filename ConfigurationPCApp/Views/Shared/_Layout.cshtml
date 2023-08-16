@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"] - PCBuilderApp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/CSS/style.css" asp-append-version="true"/>
     <link rel="stylesheet" href="/CSS/style.css" asp-append-version="true" />
 
@@ -16,16 +17,42 @@
                 <div class="reg">
                     <a asp-controller="Home" asp-action="Index" class="a-logo"><img src="/images/logo-4-2.png" alt="logo" class="logo"></a>
                     <div>
-                        <a asp-controller="Registration" asp-action="CreateNewAccaunt" class="reg-a">Регистрация /</a>
+                        <a asp-controller="Registration" asp-action="CreateNewAccaunt" class="reg-a"><span class="text-reg-max">Регистрация /</span><span class="text-reg-min">Регистрация</span></a>
                         <a asp-controller="Registration" asp-action="Auth" class="reg-a"> Войти</a>
                     </div>
                 </div>
             </div>
             <div class="down-header">
                 <nav class="left-menu">
+                    <!-- <div class="dropdown-min">
+                        <button onclick="myFunction()" class="dropbtn-min">МЕНЮ <img src="/layout/menu-min-1.png" alt="menu"></button>
+                        <div id="myDropdown-min" class="dropdown-content-min">
+                            <a href="#">КАТАЛОГ</a>
+                            <a href="#">КОНСТРУКТОР ПК</a>
+                            <a href="#">ГОТОВЫЕ СБОРКИ</a>
+                        </div>
+                    </div> -->
+                    <div class="dropdown-min">
+                        <button onclick="myFunction()" class="dropbtn-min">МЕНЮ <img src="/images/icons/menu-min-1.png" alt="menu"></button>
+                        <div id="myDropdown-min" class="dropdown-content-min">
+                            <button class="dropdown-btn-min">КАТАЛОГ&nbsp;&#9660;</button>
+                            <div class="dropdown-container-min">
+                                <a asp-controller="Catalog" asp-action="GetAllCpu">Процессоры</a>
+                                <a asp-controller="Catalog" asp-action="GetAllGpu">Видеокарты</a>
+                                <a asp-controller="Catalog" asp-action="GetAllMotherboard">Материнские платы</a>
+                                <a asp-controller="Catalog" asp-action="GetAllRam">Оперативная память</a>
+                                <a asp-controller="Catalog" asp-action="GetAllHdd">Жесткие диски</a>
+                                <a asp-controller="Catalog" asp-action="GetAllSsd">SSD</a>
+                                <a asp-controller="Catalog" asp-action="GetAllPsu">Блоки питания</a>
+                                <a asp-controller="Catalog" asp-action="GetAllCase">Корпусы</a>
+                            </div>
+                            <a asp-controller="Constructor" asp-action="Index">КОНСТРУКТОР ПК</a>
+                            <a href="#">ГОТОВЫЕ СБОРКИ</a>
+                        </div>
+                    </div>
                     <div class="dropdown">
                         <div href="" class="menu menu-l menu-bord1">
-                            КАТАЛОГ
+                            КАТАЛОГ &nbsp;
                             <i class="fa fa-caret-down"></i>
                         </div>
                         <div class="dropdown-catalog">
@@ -33,22 +60,35 @@
                             <a asp-controller="Catalog" asp-action="GetAllGpu" class="a-catalog"><img src="/images/icons/icons8-gpu-64.png" alt="gpu" class="icon-catalog"> Видеокарты</a>
                             <a asp-controller="Catalog" asp-action="GetAllMotherboard" class="a-catalog"><img src="/images/icons/icons8-motherboard.png" alt="mbr" class="icon-catalog"> Материнские платы</a>
                             <a asp-controller="Catalog" asp-action="GetAllRam" class="a-catalog"><img src="/images/icons/icons8-ram.png" alt="ram" class="icon-catalog"> Оперативная память</a>
-                            <a asp-controller="Catalog" asp-action="GetAllHdd" class="a-catalog"><img src="/images/icons/icons8-hdd-50.png" alt="ram" class="icon-catalog"> Жесткие диски</a>
-                            <a asp-controller="Catalog" asp-action="GetAllSsd" class="a-catalog"><img src="/images/icons/icons8-ssd-50.png" alt="ram" class="icon-catalog"> SSD</a>
+                            <a asp-controller="Catalog" asp-action="GetAllHdd" class="a-catalog"><img src="/images/icons/icons8-hdd-50.png" alt="psu" class="icon-catalog"> Жесткие диски</a>
+                            <a asp-controller="Catalog" asp-action="GetAllSsd" class="a-catalog"><img src="/images/icons/icons8-ssd-50.png" alt="psu" class="icon-catalog"> SSD</a>
                             <a asp-controller="Catalog" asp-action="GetAllPsu" class="a-catalog"><img src="/images/icons/icons8-power-supply.png" alt="psu" class="icon-catalog"> Блоки питания</a>
                             <a asp-controller="Catalog" asp-action="GetAllCase" class="a-catalog"><img src="/images/icons/icons8-case.png" alt="case" class="icon-catalog"> Корпусы</a>
                         </div>
                     </div>
-                    <a href="" class="menu menu-l menu-bord1">КОНСТРУКТОР ПК</a>
+                    <a asp-controller="Constructor" asp-action="Index" class="menu menu-l menu-bord1">КОНСТРУКТОР ПК</a>
                     <a href="" class="menu menu-l">ГОТОВЫЕ СБОРКИ</a>
                 </nav>
+                <div class="search-box">
+                    <input type="text" name="" class="search-txt" placeholder="Поиск..." />
+                    <a class="search-btn" href="#">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </a>
+                </div>
                 <nav class="right-menu">
-                    <a href="" class="menu menu-r menu-right"><img src="/images/icons8-basket.png" alt="basket" class="icon-menu">КОРЗИНА</a>
-                    <a href="" class="menu menu-r menu-right"><img src="/images/icons8-lk.png" alt="lk" class="icon-menu">ЛИЧНЫЙ КАБИНЕТ</a>
+                    <a href="" class="menu menu-r menu-right"><img src="/images/icons/icons8-basket.png" alt="basket" class="icon-menu"><span class="">КОРЗИНА</span></a>
+                    <a href="" class="menu menu-r menu-right"><img src="/images/icons/icons8-lk.png" alt="lk" class="icon-menu"><span class="">ЛИЧНЫЙ КАБИНЕТ</span></a>
                 </nav>
 
             </div>
         </header>
+
+        <div class="search-container-mini">
+            <form action="../action_page.php">
+                <input type="text" placeholder="Поиск.." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
 
         <div class="content">
             @RenderBody()
@@ -78,5 +118,32 @@
             document.documentElement.scrollTop = 0;
         }
     </script>
+
+    <script>
+        /* Когда пользователь нажимает на кнопку, раскрывает содержимое */
+        function myFunction() {
+            document.getElementById("myDropdown-min").classList.toggle("show");
+        }
+    </script>
+
+    <script>
+        /* Цикл через все кнопки выпадающего списка для переключения между скрытием и отображением его выпадающего содержимого - это позволяет пользователю иметь несколько выпадающих списков без каких-либо конфликтов */
+        var dropdown = document.getElementsByClassName("dropdown-btn-min");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
+
+
 </body>
 </html>
